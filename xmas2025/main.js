@@ -30,6 +30,36 @@ let imageViewerState = {
   index: 0
 };
 let currentModalImages = [];
+const ASSET_BASE = 'public/';
+
+function prefixAssetPath(path) {
+  if (!path || typeof path !== 'string') return path;
+  if (path.startsWith('http') || path.startsWith('/') || path.startsWith(ASSET_BASE)) return path;
+  return `${ASSET_BASE}${path}`;
+}
+
+function normalizeAssetImages() {
+  const normalizeImage = (img) => {
+    if (!img || typeof img !== 'object') return;
+    if (img.src) img.src = prefixAssetPath(img.src);
+    if (img.enhancedSrc) img.enhancedSrc = prefixAssetPath(img.enhancedSrc);
+  };
+
+  if (Array.isArray(SCROLLS)) {
+    SCROLLS.forEach(scroll => {
+      if (Array.isArray(scroll.images)) {
+        scroll.images.forEach(normalizeImage);
+      }
+      if (scroll.image) normalizeImage(scroll.image);
+    });
+  }
+
+  if (Array.isArray(END_IMAGES)) {
+    END_IMAGES.forEach(normalizeImage);
+  }
+}
+
+normalizeAssetImages();
 
 function openFirstModalImage() {
   if (currentModalImages.length) {
