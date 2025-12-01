@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winter's Text Quest - A Holiday Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <div id="hero-screen" role="dialog" aria-label="Game hero screen">
+      <div class="hero-inner">
+        <pre aria-hidden="true" class="hero-ascii">
+   *                    /\_/\                  *
+   /#\                  /_[]_ \                /#\
+    /###\                |  __  |               /###\
+    /#####\               | |  | |              /#####\
+    /#######\              | |[]| |             /#######\
+    /#########\             | |__| |            /#########\
+    /###########\           /|______|\          /###########\
+  ||||               _/ /      \ \_            ||||
+      .  *          /__/| XXXXXX |\__\            *  .
+        </pre>
+        <h1 class="hero-title">2025 Xmas Letter Quest</h1>
+        <p class="hero-subtitle">A cozy holiday text adventure</p>
+        <p class="hero-copy">Type your way through snow-laden halls, uncover the four scrolls, and warm up by the Evergreen Altar.</p>
+        <button id="start-btn" aria-label="Start the adventure">Press Enter to Begin</button>
+        <p class="hero-meta">&copy; <span id="hero-year"></span> Bramblehurst Games</p>
+      </div>
+    </div>
+
+    <div id="terminal" class="hidden" role="application" aria-label="Interactive fiction game terminal">
+      <div id="status-bar" role="status" aria-live="polite">
+        <span id="location">Snowy Vestibule</span>
+        <span id="moves">Moves: 0</span>
+        <span id="scrolls">Scrolls: 0/4</span>
+      </div>
+
+      <div id="output-container">
+        <div id="output" role="log" aria-live="polite" aria-atomic="false"></div>
+      </div>
+
+      <div id="input-line">
+        <span class="prompt">&gt;</span>
+        <input
+          type="text"
+          id="input"
+          aria-label="Game command input"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div id="controls">
+        <button id="glossary-btn" aria-label="Toggle glossary">Glossary (G)</button>
+        <button id="contrast-btn" aria-label="Toggle high contrast">High Contrast</button>
+        <button id="fast-text-btn" aria-label="Toggle fast text">Fast Text</button>
+        <button id="theme-btn" aria-label="Cycle terminal theme">Theme: Green</button>
+      </div>
+    </div>
+
+    <div id="glossary-panel" class="hidden" role="dialog" aria-labelledby="glossary-title">
+      <div class="glossary-content">
+        <h2 id="glossary-title">COMMAND GLOSSARY</h2>
+        <button class="close-btn" aria-label="Close glossary">[X]</button>
+
+        <div class="glossary-section">
+          <h3>VERBS</h3>
+          <dl>
+            <dt>LOOK / L</dt>
+            <dd>Examine your surroundings</dd>
+
+            <dt>EXAMINE / X / INSPECT</dt>
+            <dd>Look closely at an object</dd>
+
+            <dt>INVENTORY / I</dt>
+            <dd>List items you're carrying</dd>
+
+            <dt>TAKE</dt>
+            <dd>Pick up an object</dd>
+
+            <dt>DROP</dt>
+            <dd>Drop an object</dd>
+
+            <dt>READ</dt>
+            <dd>Read text on an object</dd>
+
+            <dt>V / VIEW</dt>
+            <dd>When reading a scroll, open its first image</dd>
+
+            <dt>USE</dt>
+            <dd>Use an item</dd>
+
+            <dt>N / NORTH / S / SOUTH / E / EAST / W / WEST</dt>
+            <dd>Move in cardinal directions</dd>
+
+            <dt>HELP</dt>
+            <dd>Show basic instructions</dd>
+
+            <dt>GLOSSARY / G</dt>
+            <dd>Show this panel</dd>
+
+            <dt>SAVE</dt>
+            <dd>Save your progress</dd>
+
+            <dt>LOAD</dt>
+            <dd>Load saved progress</dd>
+
+            <dt>QUIT</dt>
+            <dd>Exit the game</dd>
+          </dl>
+        </div>
+
+        <div class="glossary-section">
+          <h3>NOUNS</h3>
+          <dl>
+            <dt>SCROLL</dt>
+            <dd>Ancient parchment with holiday messages</dd>
+
+            <dt>TORCH</dt>
+            <dd>A light source for dark places</dd>
+
+            <dt>KEY</dt>
+            <dd>Unlocks doors</dd>
+
+            <dt>DOOR</dt>
+            <dd>Passage between rooms</dd>
+
+            <dt>ALTAR</dt>
+            <dd>Sacred holiday shrine</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" class="hidden" role="dialog" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-content">
+        <h2 id="modal-title"></h2>
+        <div id="modal-body"></div>
+        <div id="modal-image"></div>
+        <button class="close-btn" aria-label="Close">Press ESC to continue</button>
+      </div>
+    </div>
+
+    <div id="image-viewer" class="hidden" role="dialog" aria-label="Expanded image viewer" tabindex="-1">
+      <div class="image-viewer-frame">
+        <button id="image-viewer-close" aria-label="Close image viewer">[X]</button>
+        <img src="" alt="" />
+        <p class="viewer-caption"></p>
+        <p class="viewer-hint">Press X to close</p>
+      </div>
+    </div>
+
+    <div id="end-sequence" class="hidden">
+      <div class="end-content">
+        <pre id="ascii-art" aria-label="Happy Holidays ASCII art"></pre>
+        <div id="confetti" aria-hidden="true"></div>
+        <div id="image-gallery"></div>
+        <button id="share-btn">Share This Adventure</button>
+        <button id="restart-btn">Play Again</button>
+      </div>
+    </div>
+
+    <script src="content.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
