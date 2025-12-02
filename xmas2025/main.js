@@ -20,7 +20,6 @@ let gameState = {
 
 let settings = {
   fastText: false,
-  highContrast: false,
   theme: 'green'
 };
 
@@ -150,7 +149,6 @@ function setupEventListeners() {
   input.addEventListener('keydown', handleInput);
 
   document.getElementById('glossary-btn').addEventListener('click', toggleGlossary);
-  document.getElementById('contrast-btn').addEventListener('click', toggleContrast);
   document.getElementById('fast-text-btn').addEventListener('click', toggleFastText);
   document.getElementById('theme-btn').addEventListener('click', cycleTheme);
 
@@ -180,6 +178,7 @@ function setupEventListeners() {
       if (e.key === '2') { e.preventDefault(); setTheme('amber'); }
       if (e.key === '3') { e.preventDefault(); setTheme('navy'); }
       if (e.key === '4') { e.preventDefault(); setTheme('bluegray'); }
+      if (e.key === '5') { e.preventDefault(); setTheme('highcontrast'); }
     }
 
     // Only close the modal with Enter when focus isn't in the command input
@@ -353,7 +352,7 @@ function look() {
   if (hasAllScrolls && needsReading) {
     if (!gameState.readHints[gameState.currentRoom]) {
       gameState.readHints[gameState.currentRoom] = true;
-      renderOutput("You feel a pull toward the Evergreen Altar. Read the scrolls by its light.\n\n");
+      renderOutput("The scrolls hum together in your pack—you feel like you could read them now to finish the tale.\n\n");
     }
   }
 
@@ -448,7 +447,16 @@ function take(noun) {
     }
 
     const displayName = itemToTake.replace(/_/g, ' ');
-    renderOutput(`You take the ${displayName}.\n\n`);
+
+    if (itemToTake.startsWith('scroll_')) {
+      const remaining = Math.max(0, 4 - gameState.scrollsCollected.length);
+      const remainingText = remaining === 0
+        ? 'All scrolls collected!'
+        : `${remaining} scroll${remaining === 1 ? '' : 's'} remain.`;
+      renderOutput(`You take the ${displayName}. ${remainingText}\n\n`);
+    } else {
+      renderOutput(`You take the ${displayName}.\n\n`);
+    }
     updateStatus();
   } else {
     renderError("You don't see that here.\n\n");
@@ -545,7 +553,7 @@ function read(noun) {
           updateStatus();
         }
 
-        if (gameState.scrollsRead.length === 4 && gameState.currentRoom === 'altar' && !gameState.completedGame) {
+        if (gameState.scrollsRead.length === 4 && !gameState.completedGame) {
           gameState.pendingEnd = true;
         }
       }
@@ -574,18 +582,20 @@ function use(noun) {
   }
 
   const normalized = noun.replace(/\s+/g, '_');
+  const hasGoldKey = gameState.inventory.includes('gold_key');
+  const isGoldKey =
+    hasGoldKey &&
+    (normalized === 'gold_key' || normalized === 'key' || noun.toLowerCase().includes('gold'));
 
-  if ((normalized === 'key' || noun === 'key') && gameState.inventory.includes('key')) {
+  if (isGoldKey) {
     if (gameState.currentRoom === 'vestibule') {
-      gameState.vaultUnlocked = true;
-      renderOutput("You use the silver key on the oak door. It clicks open with a satisfying sound. The vault to the EAST is now accessible.\n\n");
+      if (gameState.vaultUnlocked) {
+        renderOutput("The oak door is already unlocked; snowflakes still cling to the key's teeth.\n\n");
+      } else {
+        gameState.vaultUnlocked = true;
+        renderOutput("You use the golden key on the oak door. It clicks open with a satisfying sound. The vault to the EAST is now accessible.\n\n");
+      }
     } else if (gameState.currentRoom === 'vault') {
-      renderOutput("Like...any key? Or perhaps a specific key? The chest seems to crave something golden.\n\n");
-    } else {
-      renderOutput("There's nothing here to unlock.\n\n");
-    }
-  } else if ((normalized === 'gold_key' || noun.includes('gold')) && gameState.inventory.includes('gold_key')) {
-    if (gameState.currentRoom === 'vault') {
       if (gameState.chestUnlocked) {
         renderOutput("The chest is already open, its ribbon draped aside.\n\n");
       } else {
@@ -601,13 +611,11 @@ function use(noun) {
           });
           gameState.chestContents = [];
         }
-        renderOutput("You fit the gold key into the delicate lock. The ribbon unfurls and the chest creaks open, revealing a hidden scroll.\n\n");
+        renderOutput("You fit the golden key into the delicate lock. The ribbon unfurls and the chest creaks open, revealing a hidden scroll.\n\n");
       }
     } else {
-      renderOutput("The gold key glints hopefully, but there is nothing golden to open here.\n\n");
+      renderOutput("The golden key glints hopefully, but there is nothing here that seems to match its teeth.\n\n");
     }
-  } else if ((normalized === 'torch' || noun === 'torch') && gameState.inventory.includes('torch')) {
-    renderOutput("The torch flickers with green flame, casting dancing shadows on the walls. It provides enough light to see by.\n\n");
   } else {
     renderError("You can't use that here.\n\n");
   }
@@ -617,7 +625,7 @@ function move(direction) {
   const room = MAP[gameState.currentRoom];
 
   if (direction === 'east' && gameState.currentRoom === 'vestibule' && !gameState.vaultUnlocked) {
-    renderError("The heavy oak door is locked tight. You'll need a key to open it.\n\n");
+    renderError("The heavy oak door is locked tight. The golden key from the brogmoid in the grotto should do the trick.\n\n");
     return;
   }
 
@@ -635,7 +643,7 @@ function showHelp() {
   const helpText = `2025 XMAS LETTER QUEST - HELP
 
 OBJECTIVE:
-Explore the winter realm, collect four magic scrolls, and read them at the Evergreen Altar to reveal a special holiday message.
+Explore the winter realm, collect four magic scrolls, and read them anywhere to reveal a special holiday message.
 
 BASIC COMMANDS:
 - LOOK (L): Examine your surroundings
@@ -669,12 +677,6 @@ function toggleGlossary() {
   }
 }
 
-function toggleContrast() {
-  settings.highContrast = !settings.highContrast;
-  document.body.classList.toggle('high-contrast', settings.highContrast);
-  localStorage.setItem('settings', JSON.stringify(settings));
-}
-
 function toggleFastText() {
   settings.fastText = !settings.fastText;
   const btn = document.getElementById('fast-text-btn');
@@ -682,13 +684,19 @@ function toggleFastText() {
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
-const THEMES = ['green', 'amber', 'navy', 'bluegray'];
+const THEMES = ['green', 'amber', 'navy', 'bluegray', 'highcontrast'];
 
 function applyTheme(theme) {
   THEMES.forEach(t => document.body.classList.remove(`theme-${t}`));
+  document.body.classList.remove('high-contrast'); // legacy class cleanup
   document.body.classList.add(`theme-${theme}`);
   const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = `Theme: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+  if (btn) {
+    const label = theme === 'highcontrast'
+      ? 'High Contrast'
+      : theme.charAt(0).toUpperCase() + theme.slice(1);
+    btn.textContent = `Theme: ${label}`;
+  }
 }
 
 function setTheme(theme) {
@@ -869,11 +877,10 @@ function closeModal(reason = 'unknown') {
   document.getElementById('input').focus();
   currentModalImages = [];
 
-   // If all scrolls are read at the altar, trigger end sequence after closing
+   // If all scrolls are read, trigger end sequence after closing
   if (
     gameState.pendingEnd &&
     gameState.scrollsRead.length === 4 &&
-    gameState.currentRoom === 'altar' &&
     !gameState.completedGame
   ) {
     gameState.pendingEnd = false;
@@ -921,7 +928,12 @@ function loadSettings() {
     const saved = localStorage.getItem('settings');
     if (saved) {
       settings = JSON.parse(saved);
-      document.body.classList.toggle('high-contrast', settings.highContrast);
+      const parsed = JSON.parse(saved);
+      const merged = {
+        fastText: !!parsed.fastText,
+        theme: parsed.theme || (parsed.highContrast ? 'highcontrast' : 'green')
+      };
+      settings = merged;
       const btn = document.getElementById('fast-text-btn');
       btn.textContent = settings.fastText ? 'Normal Text' : 'Fast Text';
       applyTheme(settings.theme || 'green');
