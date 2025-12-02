@@ -33,8 +33,50 @@ const ASSET_BASE = 'public/';
 
 function prefixAssetPath(path) {
   if (!path || typeof path !== 'string') return path;
-  if (path.startsWith('http') || path.startsWith('/') || path.startsWith(ASSET_BASE)) return path;
-  return `${ASSET_BASE}${path}`;
+  if (path.startsWith('http')) return path;
+
+  // Normalize any leading slash to keep assets relative to the game folder
+  const normalized = path.startsWith('/') ? path.slice(1) : path;
+  if (normalized.startsWith(ASSET_BASE)) return normalized;
+
+  return `${ASSET_BASE}${normalized}`;
+}
+
+// Input normalization helpers
+function normalizeNoun(noun) {
+  return (noun || '').toLowerCase().trim().replace(/\s+/g, '_');
+}
+
+function buildScrollCandidates(noun) {
+  const normalized = normalizeNoun(noun);
+  const tokens = normalized.split('_').filter(Boolean);
+  const hasScrollWord = tokens.includes('scroll');
+  const bareTokens = tokens.filter(t => t !== 'scroll');
+  const bare = bareTokens.join('_');
+
+  const variants = new Set();
+  if (normalized) variants.add(normalized);
+  if (bare) {
+    variants.add(bare);
+    variants.add(`scroll_${bare}`);
+  }
+  if (!hasScrollWord && normalized) {
+    variants.add(`scroll_${normalized}`);
+  }
+  return variants;
+}
+
+function findMatchingScroll(items, noun) {
+  const candidates = buildScrollCandidates(noun);
+  return items.find(item => {
+    if (!item.startsWith('scroll_')) return false;
+    const bare = item.replace(/^scroll_/, '');
+    return (
+      candidates.has(item) ||
+      candidates.has(bare) ||
+      [...candidates].some(c => item.includes(c))
+    );
+  });
 }
 
 function normalizeAssetImages() {
@@ -373,17 +415,19 @@ function examine(noun) {
   const room = MAP[gameState.currentRoom];
   const items = gameState.roomItems[gameState.currentRoom] || [];
 
-  const normalized = noun.replace(/\s+/g, '_');
+  const normalized = normalizeNoun(noun);
+  const scrollInRoom = findMatchingScroll(items, noun);
 
-  if (items.includes(normalized) || items.includes('scroll_' + normalized)) {
-    const itemKey = items.includes(normalized) ? normalized : 'scroll_' + normalized;
-    if (room.examined && room.examined[itemKey]) {
-      renderOutput(`${room.examined[itemKey]}\n\n`);
-      return;
-    }
+  const roomItemKey = items.includes(normalized)
+    ? normalized
+    : scrollInRoom;
+  if (roomItemKey && room.examined && room.examined[roomItemKey]) {
+    renderOutput(`${room.examined[roomItemKey]}\n\n`);
+    return;
   }
 
-  if (gameState.inventory.includes(normalized) || gameState.inventory.includes('scroll_' + normalized)) {
+  const scrollInInventory = findMatchingScroll(gameState.inventory, noun);
+  if (gameState.inventory.includes(normalized) || scrollInInventory) {
     renderOutput(`You're carrying that. Try reading it or using it.\n\n`);
     return;
   }
@@ -416,16 +460,24 @@ function take(noun) {
     return;
   }
 
-  const normalized = noun.replace(/\s+/g, '_');
+  const normalized = normalizeNoun(noun);
   const scrollNormalized = 'scroll_' + normalized;
   const items = gameState.roomItems[gameState.currentRoom] || [];
 
   let itemToTake = null;
   if (items.includes(normalized)) {
     itemToTake = normalized;
-  } else if (items.includes(scrollNormalized)) {
+  }
+  if (!itemToTake) {
+    const scrollMatch = findMatchingScroll(items, noun);
+    if (scrollMatch) {
+      itemToTake = scrollMatch;
+    }
+  }
+  if (!itemToTake && items.includes(scrollNormalized)) {
     itemToTake = scrollNormalized;
-  } else {
+  }
+  if (!itemToTake) {
     const found = items.find(item => item.includes(normalized) || item.replace(/_/g, ' ').includes(noun));
     if (found) itemToTake = found;
   }
@@ -469,15 +521,23 @@ function drop(noun) {
     return;
   }
 
-  const normalized = noun.replace(/\s+/g, '_');
+  const normalized = normalizeNoun(noun);
   const scrollNormalized = 'scroll_' + normalized;
 
   let itemToDrop = null;
   if (gameState.inventory.includes(normalized)) {
     itemToDrop = normalized;
-  } else if (gameState.inventory.includes(scrollNormalized)) {
+  }
+  if (!itemToDrop) {
+    const scrollMatch = findMatchingScroll(gameState.inventory, noun);
+    if (scrollMatch) {
+      itemToDrop = scrollMatch;
+    }
+  }
+  if (!itemToDrop && gameState.inventory.includes(scrollNormalized)) {
     itemToDrop = scrollNormalized;
-  } else {
+  }
+  if (!itemToDrop) {
     const found = gameState.inventory.find(item =>
       item.includes(normalized) || item.replace(/_/g, ' ').includes(noun)
     );
@@ -516,24 +576,15 @@ function read(noun) {
     return;
   }
 
-  const normalized = noun.replace(/\s+/g, '_');
-  const scrollNormalized = 'scroll_' + normalized;
+  const normalized = normalizeNoun(noun);
 
-  let scrollToRead = null;
-  const exactMatches = scrollsInInventory.filter(item => item === scrollNormalized || item === normalized);
-  if (exactMatches.length === 1) {
-    scrollToRead = exactMatches[0];
-  } else {
-    const partialMatches = scrollsInInventory.filter(item =>
-      item.startsWith('scroll_') &&
-      (item.includes(normalized) || item.replace(/_/g, ' ').includes(noun))
+  let scrollToRead = findMatchingScroll(scrollsInInventory, noun);
+  if (!scrollToRead) {
+    const partialMatch = scrollsInInventory.find(item =>
+      item.includes(normalized) || item.replace(/_/g, ' ').includes(noun)
     );
-
-    if (partialMatches.length === 1) {
-      scrollToRead = partialMatches[0];
-    } else if (partialMatches.length > 1) {
-      promptForScrollChoice();
-      return;
+    if (partialMatch) {
+      scrollToRead = partialMatch;
     }
   }
 

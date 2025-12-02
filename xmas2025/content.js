@@ -146,7 +146,7 @@ To the NORTH, a corridor lined with red and white striped pillars beckons. To th
       snow: "The snow sparkles with an otherworldly light, as if each flake contains a tiny star.",
       icicles: "The icicles chime softly, creating an ethereal melody."
     },
-    clue: "A gopher suddenly pops their head out from the ground, wearing a Santa hat. The gopher stares blankly at you and then speaks, 'Head SOUTH to meet the brogmoid, and his golden key will open that oak door EAST. Type HELP if you blank on the commands.' After a pregnant pause, he scurries back into his snowy burrow.",
+    clue: "A gopher suddenly pops their head out from the ground, wearing a Santa hat. The gopher stares blankly at you and then speaks, 'Head SOUTH to meet the brogmoid, and his golden key will open that oak door EAST. Literally type 'use key'. Type HELP if you blank on the commands.' After a pregnant pause, he scurries back into his snowy burrow.",
   },
 
   corridor: {
