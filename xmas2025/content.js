@@ -153,8 +153,7 @@ To the NORTH, a corridor lined with red and white striped pillars beckons. To th
     id: "corridor",
     name: "Candy Cane Corridor",
     descriptionSections: {
-      intro: `The ancient corridor stretches before you, its vaunted walls adorned with massive red and white striped pillars that spiral toward the ceiling. The air smells of peppermint and pine.`,
-      pedestal: `A marble pedestal gleams at the center of the room.`,
+      intro: `The ancient corridor stretches before you, its vaunted walls adorned with massive red and white striped pillars that spiral toward the ceiling. The air smells of peppermint and pine. A marble pedestal gleams at the center of the room.`,
       directions: `You can go SOUTH to return to the vestibule, or continue NORTH toward a green glow.`
     },
     exits: {
