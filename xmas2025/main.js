@@ -320,6 +320,12 @@ function parseCommand(command) {
   const verb = words[0];
   const noun = words.slice(1).join(' ');
 
+  // Quick handle glossary no matter where it appears in the command
+  if (words.some(w => w === 'glossary' || w === 'g')) {
+    toggleGlossary();
+    return;
+  }
+
   const synonyms = {
     'l': 'look',
     'x': 'examine',

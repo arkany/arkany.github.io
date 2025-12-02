@@ -76,7 +76,7 @@ body.theme-highcontrast {
   --bg-dark: #000000;
   --bg-terminal: #000000;
   --glow: 0 0 6px var(--phosphor-green), 0 0 12px var(--phosphor-green);
-  --image-hue-rotate: 0deg;
+  --image-hue-rotate: 110deg;
 }
 
 body {
@@ -790,19 +790,6 @@ body.theme-bluegray #image-gallery img {
   button {
     font-size: 18px;
     padding: 6px 12px;
-  }
-
-  #modal {
-    padding: 10px;
-  }
-
-  .modal-content {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    max-height: calc(100vh - 20px);
-    margin: 0;
-    padding: 20px;
   }
 
   .glossary-content,
