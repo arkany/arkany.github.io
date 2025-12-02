@@ -344,6 +344,12 @@ function parseCommand(command) {
 
   const normalizedVerb = synonyms[verb] || verb;
 
+  // Allow "glossary" (or "g") as a standalone command regardless of position
+  if (normalizedVerb === 'glossary') {
+    toggleGlossary();
+    return;
+  }
+
   const commands = {
     'look': () => look(),
     'examine': () => examine(noun),
@@ -737,10 +743,14 @@ Good luck, adventurer!
 
 function toggleGlossary() {
   const panel = document.getElementById('glossary-panel');
+  if (!panel) return;
   panel.classList.toggle('hidden');
 
   if (!panel.classList.contains('hidden')) {
-    panel.querySelector('.close-btn').focus();
+    const closeBtn = panel.querySelector('.close-btn');
+    if (closeBtn) {
+      closeBtn.focus();
+    }
   } else {
     document.getElementById('input').focus();
   }

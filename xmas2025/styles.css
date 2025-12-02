@@ -76,7 +76,7 @@ body.theme-highcontrast {
   --bg-dark: #000000;
   --bg-terminal: #000000;
   --glow: 0 0 6px var(--phosphor-green), 0 0 12px var(--phosphor-green);
-  --image-hue-rotate: 110deg;
+  --image-hue-rotate: 0deg;
 }
 
 body {
@@ -738,6 +738,10 @@ button:active {
 body.theme-bluegray #modal-image img,
 body.theme-bluegray #image-gallery img {
   filter: brightness(0.9) contrast(1.1) hue-rotate(var(--image-hue-rotate)) saturate(0);
+}
+
+body.theme-highcontrast #image-gallery img {
+  filter: brightness(0.9) contrast(1.1) saturate(0);
 }
 
 #image-gallery img:hover {
