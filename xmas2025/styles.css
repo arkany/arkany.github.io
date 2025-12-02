@@ -758,6 +758,10 @@ body.theme-bluegray #image-gallery img {
 }
 
 @media (max-width: 768px) {
+  #terminal {
+    padding: 10px 10px 6px;
+  }
+
   #status-bar {
     flex-direction: column;
     gap: 5px;
@@ -772,13 +776,33 @@ body.theme-bluegray #image-gallery img {
     font-size: 20px;
   }
 
+  #input-line {
+    padding: 8px 12px;
+  }
+
   #controls {
+    padding: 4px 0 2px;
+    margin-bottom: 0;
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   button {
     font-size: 18px;
     padding: 6px 12px;
+  }
+
+  #modal {
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: calc(100vh - 20px);
+    margin: 0;
+    padding: 20px;
   }
 
   .glossary-content,

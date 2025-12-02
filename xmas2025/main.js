@@ -42,6 +42,18 @@ function prefixAssetPath(path) {
   return `${ASSET_BASE}${normalized}`;
 }
 
+function blurInput() {
+  const input = document.getElementById('input');
+  if (input && document.activeElement === input) {
+    input.blur();
+  }
+}
+
+function isMobileLike() {
+  if (typeof window === 'undefined' || typeof window.matchMedia === 'undefined') return false;
+  return window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(max-width: 768px)').matches;
+}
+
 // Input normalization helpers
 function normalizeNoun(noun) {
   return (noun || '').toLowerCase().trim().replace(/\s+/g, '_');
@@ -793,6 +805,12 @@ function setupImageViewer() {
     viewerImg.addEventListener('error', () => {
       viewerCaption.textContent = 'The image flickers and fades. Try another.';
     });
+
+    viewerImg.addEventListener('click', () => {
+      if (isMobileLike()) {
+        closeImageViewer('image tap');
+      }
+    });
   }
 }
 
@@ -874,6 +892,8 @@ function showModal(scroll) {
     console.error('Modal elements missing from the page');
     return;
   }
+
+  blurInput();
 
   console.log('Opening modal for scroll:', scroll.id, 'before classes:', [...modal.classList]);
 
