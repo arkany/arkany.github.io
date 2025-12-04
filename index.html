@@ -1,244 +1,335 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>David Phillips - Portfolio and Blog</title>
+<html lang="en" data-theme="cyberpunk"><head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="UX Designer and ITP Alumni">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/stylesheets/style.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <script src="../../js/vendor/custom.modernizr.js"></script>
-    <!-- Custom JavaScript files set in YAML front matter -->
+    <title>Portfolio Landing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;family=DM+Serif+Display&amp;family=Permanent+Marker&amp;family=JetBrains+Mono:wght@400;500;800&amp;display=swap" rel="stylesheet">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></sc\
-ript>
-    <![endif]-->
-  </head>
+    <style>
+        /* CSS Variables for Themes */
+        :root[data-theme="cyberpunk"] {
+            --bg-body: #050505;
+            --bg-card-1: #C2423D; /* Red */
+            --bg-card-2: #F2AE5B; /* Yellow */
+            --bg-card-3: #6B906F; /* Green */
+            --bg-card-4: #B0B4B8; /* Gray */
+            --text-main: #111111;
+            --text-inv: #EAEAEA;
+            --font-display: 'JetBrains Mono', monospace;
+            --font-body: 'Space Mono', monospace;
+            --rounded-lg: 24px;
+            --rounded-sm: 8px;
+            --border-width: 0px;
+            --border-color: transparent;
+            --graphic-opacity: 0.8;
+        }
 
-  <body>
-    <div class="header__bar">
-      <h1><a href="/">{dp}</a></h1>
+        :root[data-theme="humanist"] {
+            --bg-body: #F5F2EB;
+            --bg-card-1: #D6CCC2; /* Warm Grey */
+            --bg-card-2: #E3D5CA; /* Beige */
+            --bg-card-3: #D5BDAF; /* Taupe */
+            --bg-card-4: #F5EBE0; /* Cream */
+            --text-main: #4A4A4A;
+            --text-inv: #2C2C2C;
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --rounded-lg: 12px;
+            --rounded-sm: 6px;
+            --border-width: 0px;
+            --border-color: transparent;
+            --graphic-opacity: 0.4;
+        }
+
+        :root[data-theme="punk"] {
+            --bg-body: #111111;
+            --bg-card-1: #FF0055; /* Hot Pink */
+            --bg-card-2: #FFE600; /* Yellow */
+            --bg-card-3: #00FFCC; /* Cyan */
+            --bg-card-4: #FFFFFF; /* White */
+            --text-main: #000000;
+            --text-inv: #FFFFFF;
+            --font-display: 'Permanent Marker', cursive;
+            --font-body: 'Inter', sans-serif;
+            --rounded-lg: 0px;
+            --rounded-sm: 0px;
+            --border-width: 2px;
+            --border-color: #000000;
+            --graphic-opacity: 1;
+        }
+
+        /* Utilities leveraging variables */
+        body {
+            background-color: var(--bg-body);
+            transition: background-color 0.5s ease;
+        }
+        .theme-card {
+            border-radius: var(--rounded-lg);
+            border: var(--border-width) solid var(--border-color);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .theme-font-display { font-family: var(--font-display); }
+        .theme-font-body { font-family: var(--font-body); }
+        .graphic-el { opacity: var(--graphic-opacity); }
+        
+        /* Custom noise for cyberpunk feel */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 50;
+        }
+    </style>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 overflow-x-hidden theme-font-body relative">
+
+    <div class="noise-overlay"></div>
+
+    <!-- Theme Switcher -->
+    <div class="fixed flex bg-white/10 z-50 border-white/10 border rounded-full pt-1 pr-1 pb-1 pl-1 top-6 right-6 backdrop-blur-md gap-x-2 gap-y-2">
+        <button onclick="setTheme('cyberpunk')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-mono hover:bg-white/10 rounded-full transition-colors">CYBER</button>
+        <button onclick="setTheme('humanist')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-sans hover:bg-white/10 rounded-full transition-colors">HUMAN</button>
+        <button onclick="setTheme('punk')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-bold hover:bg-white/10 rounded-full transition-colors">PUNK</button>
     </div>
-    
-    <div class="header container">
-      <div id="header__content">
-        <!-- <div class="columns twelve nav-container">
-          <h1>David Phillips</h1>
-        </div> -->
 
-        <div class="row">
-          <h2>David Phillips</h2>
-          <p>
-            Design Technologist<br>
-            I design, prototype, code, and repeat.
-            <br>
-            Thanks for stopping by.
-          </p>
+    <!-- Top Graphics -->
+    <div class="w-full max-w-6xl mb-6 flex justify-between items-end text-[var(--text-inv)] opacity-50 px-2 select-none pointer-events-none hidden sm:flex">
+        <div class="text-xs tracking-widest theme-font-display">SYS_READY // V.2.0.4</div>
+        <div class="flex gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery-medium" class="lucide lucide-battery-medium w-4 h-4"><path d="M10 14v-4"></path><path d="M22 14v-4"></path><path d="M6 14v-4"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg>
+            <span class="text-xs font-mono">10:42 AM</span>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10">
+
+        <!-- Block 1: The Image (Red) - Spans 4 cols, 2 rows height equivalent -->
+        <div class="lg:col-span-4 lg:row-span-2 theme-card bg-[var(--bg-card-1)] text-[var(--text-main)] relative overflow-hidden group min-h-[500px] lg:min-h-[600px] flex flex-col justify-between p-6 sm:p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-start z-10">
+                <span class="text-sm font-semibold tracking-tight graphic-el">01</span>
+                <div class="text-right">
+                    <p class="text-[10px] uppercase tracking-widest opacity-70">Role</p>
+                    <p class="text-sm font-semibold">PRODUCT DESIGNER</p>
+                </div>
+            </div>
+
+            <!-- Main Visual -->
+            <div class="absolute inset-0 top-16 bottom-24 flex items-center justify-center pointer-events-none">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Robot" class="w-[120%] h-[120%] object-cover grayscale contrast-125 brightness-90 mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                
+                <!-- Overlay Graphic -->
+                <div class="absolute top-1/4 left-8 bg-white/90 px-3 py-2 rounded-sm border border-black/10 shadow-lg transform -rotate-2 graphic-el">
+                     <div class="font-mono text-xs mb-1">ID: 59X-77</div>
+                     <div class="h-8 w-24 bg-black/10 flex items-center justify-center overflow-hidden">
+                        <span class="font-barcode text-2xl tracking-tighter scale-y-150">||| |||| | ||</span>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="relative z-10 mt-auto">
+                <h1 class="text-5xl sm:text-7xl theme-font-display leading-none mb-4 graphic-el" style="writing-mode: vertical-rl; text-orientation: mixed; height: auto; position: absolute; bottom: 0; left: -10px; opacity: 0.15;">CREATIVE</h1>
+                <div class="flex justify-between items-end">
+                    <div class="">
+                        <div class="text-4xl sm:text-5xl font-bold mb-2 graphic-el">独創</div>
+                        <div class="h-1 w-12 bg-current rounded-full"></div>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="w-2 h-2 rounded-full bg-current animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-current opacity-50"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="social-media row">
-      		<a class="large-1 small-1" href="http://twitter.com/sippingink"><i class="fa fa-twitter"></i></a>
-      		<a class="large-1 small-1" href="https://github.com/arkany"><i class="fa fa-github"></i></a>
-      		<a class="large-1 small-1" href="https://www.linkedin.com/in/arkany"><i class="fa fa-linkedin"></i></a>
-      	</div>
-      </div>
+        <!-- Right Column Container -->
+        <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 lg:grid-rows-[auto_1fr] gap-x-4 gap-y-4">
+            
+            <!-- Block 2: Experience (Yellow) - Wide -->
+            <div class="md:col-span-2 theme-card bg-[var(--bg-card-2)] text-[var(--text-main)] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+                <!-- Decorative BG Text -->
+                <div class="absolute top-[-20px] right-[-20px] text-[180px] leading-none font-bold opacity-5 pointer-events-none theme-font-display select-none truncate">EXP</div>
+                
+                <div class="flex justify-between items-start mb-8 relative z-10">
+                    <h2 class="sm:text-5xl theme-font-display uppercase text-3xl font-black tracking-tight">
+  Experience<span class="text-red-500 rounded-full inline-block w-3 h-3 ml-1 mb-4"></span></h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right w-12 h-12 stroke-[1.5px]"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 relative z-10">
+                    <!-- Stat Card 1 -->
+                    <div class="border-neutral-950/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
+                         <div class="flex justify-between items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bot" class="lucide lucide-bot w-4 h-4 opacity-70"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+                            <span class="text-[10px] font-mono opacity-60">AI</span>
+                        </div>
+                        <div class="font-bold text-lg leading-tight">Copilot Groups</div>
+                        <div class="text-xs opacity-70 mt-1">Product Design</div>
+                         <div class="flex gap-1 mt-3">
+                            <div class="h-2 w-2 rounded-full bg-current opacity-20"></div>
+                            <div class="h-2 w-2 rounded-full bg-current opacity-40"></div>
+                            <div class="h-2 w-2 rounded-full bg-current opacity-100"></div>
+                        </div>
+                    </div><div class="border-neutral-900/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
+                         <div class="flex justify-between items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-4 h-4 opacity-70"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                            <span class="text-[10px] font-mono opacity-60">GRP</span>
+                        </div>
+                        <div class="font-bold text-lg leading-tight">GroupMe App</div>
+                        <div class="text-xs opacity-70 mt-1" style="">Principal Design Lead</div>
+                        <div class="flex text-[10px] font-mono border-neutral-950/20 border-t mt-3 pt-2 justify-between">
+                            <span class="">V.4.2</span>
+                            <span class="">-&gt;</span>
+                        </div>
+                    </div><div class="border-neutral-900/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" class="lucide lucide-message-square w-4 h-4 opacity-70"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
+                            <span class="text-[10px] font-mono opacity-60">MSFT</span>
+                        </div>
+                        <div class="font-bold text-lg leading-tight">Microsoft Teams</div>
+                        <div class="text-xs opacity-70 mt-1">Product Designer II - Principal Design Manager</div>
+                        <!-- Micro Chart -->
+                        <div class="flex items-end gap-1 h-8 mt-3 opacity-60">
+                            <div class="w-1 bg-current h-[40%]"></div>
+                            <div class="w-1 bg-current h-[70%]"></div>
+                            <div class="w-1 bg-current h-[50%]"></div>
+                            <div class="w-1 bg-current h-[100%]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    
+
+                    <!-- Stat Card 3 -->
+                    
+                </div>
+
+                <!-- Bottom Strip -->
+                <div class="mt-8 flex items-center gap-4 text-xs font-mono uppercase tracking-widest border-t border-black/10 pt-4 opacity-70">
+                    <span>#EOA15E</span>
+                    <div class="h-px flex-1 bg-current opacity-30"></div>
+                    <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" class="lucide lucide-globe w-3 h-3"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg> CORP.</span>
+                </div>
+            </div>
+
+            <!-- Block 3: History (Green) -->
+            <div class="theme-card bg-[var(--bg-card-3)] text-[var(--text-main)] p-6 sm:p-8 flex flex-col justify-between min-h-[320px] relative">
+                <div class="absolute top-4 right-4 opacity-30">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hourglass" class="lucide lucide-hourglass" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(17, 17, 17);"><path d="M5 22h14"></path><path d="M5 2h14"></path><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path></svg>
+                </div>
+                
+                <div class="">
+                    <div class="inline-block text-[10px] uppercase font-mono bg-black/5 border-neutral-900/30 border rounded-[4px] mb-4 pt-1 pr-2 pb-1 pl-2">
+                        DPM SYSTM
+                    </div>
+                    <h3 class="text-2xl font-bold tracking-tight mb-6">Work History</h3>
+                    
+                    <ul class="text-sm font-mono space-y-4">
+                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
+                            <span class="font-semibold">Microsoft</span>
+                            <span class="text-xs opacity-60">2014-Present</span>
+                        </li>
+                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
+                            <span class="font-semibold">Control Group</span>
+                            <span class="text-xs opacity-60">2011-2014</span>
+                        </li>
+                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
+                            <span class="font-semibold">TechStars</span>
+                            <span class="text-xs opacity-60">2011</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex bg-black/5 border-neutral-900/30 border rounded-[var(--rounded-sm)] mt-6 pt-3 pr-3 pb-3 pl-3 items-center justify-between">
+                    <div class="text-[10px] leading-tight font-mono">
+                        SORT BEFORESENDING
+                    </div>
+                    <div class="theme-font-display text-2xl font-bold tracking-tighter">TS26</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="aperture" class="lucide lucide-aperture w-5 h-5 animate-spin-slow"><circle cx="12" cy="12" r="10"></circle><path d="m14.31 8 5.74 9.94"></path><path d="M9.69 8h11.48"></path><path d="m7.38 12 5.74-9.94"></path><path d="M9.69 16 3.95 6.06"></path><path d="M14.31 16H2.83"></path><path d="m16.62 12-5.74 9.94"></path></svg>
+                </div>
+            </div>
+
+            <!-- Block 4: Misc/About (Gray) -->
+            <div class="theme-card bg-[var(--bg-card-4)] text-[var(--text-main)] p-6 sm:p-8 flex flex-col relative overflow-hidden min-h-[320px]">
+                <!-- Background Pattern -->
+                 <div class="absolute inset-0 opacity-5 pointer-events-none flex flex-wrap gap-4 p-4">
+                     <div class="w-2 h-2 bg-current rounded-full"></div>
+                     <div class="w-2 h-2 bg-current rounded-full"></div>
+                     <div class="w-2 h-2 bg-current rounded-full"></div>
+                     <div class="w-2 h-2 bg-current rounded-full"></div>
+                     <!-- Pattern repeats visually -->
+                 </div>
+
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <span class="font-mono text-xs mb-1 opacity-60">Retro ai</span>
+                            <h3 class="text-lg font-semibold leading-tight">technology</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="component" class="lucide lucide-component w-6 h-6"><path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"></path><path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z"></path><path d="M8.916 17.912a1 1 0 0 0 0 1.415l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.415l-2.377-2.376a1 1 0 0 0-1.414 0z"></path><path d="M8.916 4.674a1 1 0 0 0 0 1.414l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"></path></svg>
+                    </div>
+                    
+                    <div class="my-auto py-8">
+                        <div class="flex items-baseline">
+                             <span class="text-[120px] leading-none theme-font-display graphic-el font-bold tracking-tighter">14</span>
+                             <span class="text-xl font-mono mb-8 ml-[-8px]">®</span>
+                        </div>
+                        <p class="text-sm opacity-70 mt-[-10px] max-w-[150px]">Years of analyzing digital interfaces.</p>
+                    </div>
+
+                    <div class="mt-auto flex justify-between items-end border-t border-current/20 pt-4">
+                        
+                        <a href="https://www.linkedin.com/in/arkany/" class="hover:underline text-sm font-semibold">LinkedIn</a><div class="flex gap-2">
+                            <div class="w-8 h-4 bg-red-500/20 mix-blend-multiply"></div>
+                            <div class="w-4 h-4 bg-current/20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bottom Micrographics -->
+    <div class="w-full max-w-6xl mt-6 flex justify-between items-start text-[var(--text-inv)] opacity-40 px-2 select-none pointer-events-none text-[10px] font-mono hidden sm:flex">
+        <div class="flex gap-8">
+            <span>COORD: 34.0522° N, 118.2437° W</span>
+            <span>MEM: 64TB</span>
+        </div>
+        <div class="flex flex-col items-end gap-1">
+            <div class="w-32 h-1 bg-current/30 overflow-hidden">
+                <div class="w-1/3 h-full bg-current animate-pulse"></div>
+            </div>
+            <span>RENDER_QUEUE_EMPTY</span>
+        </div>
     </div>
-    
-    <div class="container">
 
-<div>
-	<div class="portfolio">
-		<!-- <h1>Portfolio</h1> -->
-		<div id="selected-works">
-			<h2>Featured</h2>
-			<a href="portfolio/emki" class="row featured emki">
-					<h2>Edward M Kennedy Institute</h2>
-					<p>Mobile, Android/Angular, Front end development</p>
-					<span>View case study</span>
-			</a>
-			<a href="portfolio/sensible-living/" class="featured sensible">
-				<h2>Sensible Living</h2>
-				<p>UX, UI, Brand Identity</p>
-				<span>View case study</span>
-			</a>
-			<div class="featured skype">
-				<h2>Skype</h2>
-				<p>Coming soon</p>
-			</div>
-		</div>
-		<h2 id="outlier">Work</h2>
-		<ul id="og-grid" class="og-grid">
-			
-			<li>
-				<a href="../portfolio/win10" data-hlabel="Learn More" data-largesrc="../img/gallery/win10.png" data-title="Windows 10 Search" data-description="Upon my arrival at Microsoft, I became a part of the Windows 10 search UX team."><img src="../img/gallery/thumbs/win10.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/otg" data-hlabel="Learn More" data-largesrc="../img/gallery/food-ordering.jpg" data-title="Food Ordering iPad App" data-description="I provided the visual and front end Development for the food ordering portion of a travel-based iPad application.  I will see if I am allowed to say anything further about it."><img src="../img/gallery/thumbs/food-ordering.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/apple" data-hlabel="Learn More" data-largesrc="../img/gallery/apple.png" data-title="Apple - Design Internship" data-description="I traveled to Cupertino, CA for a design internship with Apple's MobileMe Design team."><img src="../img/gallery/thumbs/apple.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/snapscouts" data-hlabel="Learn More" data-largesrc="../img/gallery/snapscouts.png" data-title="Snapscouts - Android" data-description="SnapScouts is agitprop software theatre. SnapScouts received over 80,000 hits was mentioned in several blogs including Wired, LA Times, Reddit and Download Squad. The Android application and accompanying site ultimately promotes kids spying on your neighborhood and parents. This is, of course, a terrible idea, but by creating awareness, it will hopefully promote privacy."><img src="../img/gallery/thumbs/snapscouts-alt.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/yumzy" data-hlabel="Learn More" data-largesrc="../img/gallery/yumzy.jpg" data-title="Yumzy and Stalk logos" data-description="For High Fructose Zombies, the evil Yumzy and Stalk Corporations needed to be as iconic as Disneyland or Willy Wonka."><img src="../img/gallery/thumbs/yumzy.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/pystache" data-hlabel="Learn More" data-largesrc="../img/gallery/pystache.png" data-title="Pystache Logo" data-description="Pystache is an open source Python implementation of the Mustache templating system. I respect the project, especially because the mascot could be a python with a mustache. I designed the logo on spec and then pushed it to the Github account. I was fortunate enough to be approved."><img src="../img/gallery/thumbs/pystache.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/sarah-skull" data-hlabel="Learn More" data-largesrc="../img/gallery/sarah-skull.png" data-title="Logo Design" data-description="Sarah was looking for a new logo that would quickly describe the kind of artist that she was. We settled on somewhere between a flower and a skull. After a few bazillion iterations, we had a logo."><img src="../img/gallery/thumbs/sarah-skull.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/potentpress" data-hlabel="Learn More" data-largesrc="../img/gallery/potent-press.png" data-title="Brand Identity" data-description="My wife and I set out to create our own comic book. Well, every comic book needs it's own publisher.  We set out to create a logo that would showcase our wonderfully warped sensibilities."><img src="../img/gallery/thumbs/potent.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/ordrin" data-hlabel="Learn More" data-largesrc="../img/gallery/ordr/ordr-0.jpg" data-title="Facebook Mockup" data-description="Ordr.in is a food ordering API from TechStars 2011. They needed a white-label Facebook app. I was brought in to brainstorm, UI/UX, and match their existing design. When shown to Facebook, they said it was, &quot;One of the best uses of the platform for commerce we've ever seen.&quot;"><img src="../img/gallery/thumbs/ordrin.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/contently" data-hlabel="Learn More" data-largesrc="../img/gallery/contently.jpg" data-title="Icon & Template Design" data-description="Contently is the anti-content farm, a platform where journalists can manage their freelance careers, and where brands-turned-publishers can run editorial operations. I had the opportunity to work with this amazing team at TechStars 2011."><img src="../img/gallery/thumbs/contently.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="http://www.core77.com/gallery/itp-winter-show-2010/59.asp?tag=Designing%20Living%20Systems" data-hlabel="Core77 Gallery" data-largesrc="../img/gallery/planting.jpg" data-title="Planting Steps, 2011" data-description="The project is a vertical, hydroponic farm flat pack, so anyone who can put together an Ikea bookshelf will be fully prepared to put together our farm. In short, it's Ikea meets Whole Foods."><img src="../img/gallery/thumbs/planting.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/bookbridge" data-hlabel="Learn More" data-largesrc="../img/gallery/bookbridge.png" data-title="Bookbridge - Thesis" data-description="Bookbridge was my thesis for ITP in the spring of 2011.  It was a philanthropic Book Lifecycle which allowed the book retailer, libraries and avid readers to help each other. My thesis included a prototype site, along with a paper detailing the benefits of the ecosystem for the ebook provider, the libary system and book lovers alike."><img src="../img/gallery/thumbs/bookbridge.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/upcoming" data-hlabel="Learn More" data-largesrc="../img/gallery/upcoming.jpg" data-title="Site Design" data-description="This is an site redesign for a startup. Super interesting project with some smart people at the helm. This design was not used in the final iteration."><img src="../img/gallery/thumbs/upcoming.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="http://thenextweb.com/insider/2011/10/18/meet-the-12-new-techstars-companies-mayor-bloomberg-approved/" data-hlabel="Next Web Article" data-largesrc="../img/gallery/mobintent.jpg" data-title="MobIntent Logo" data-description="MobIntent was a platform to run optimized mobile advertising campaigns. They needed a new logo to showcase their new brand. I designed the logo and overall brand identity to emphasize the classy, sharp, luxury class work into the current mobile ad landscape."><img src="../img/gallery/thumbs/mobintent.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="http://www.crunchbase.com/organization/piictu" data-hlabel="Piictu Acquired" data-largesrc="../img/gallery/piictu.jpg" data-title="Marketing Visual Design" data-description="This was a marketing piece for the photo-chat application Piictu. When their competition closed up shop, we created a marketing landing page to help people onboard. It was ultimately abandoned due to time constraints.  A herald to a more skeumorphic time. I am especially proud of the leaves and camera lens pocket."><img src="../img/gallery/thumbs/piictu.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="http://www.amazon.com/The-Rig-William-Forsythe/dp/B003VQO4WK" data-hlabel="Buy on Amazon" data-largesrc="../img/gallery/the-rig.jpg" data-title="The Rig - Concept Poster" data-description="The Rig is a delightful horror film, directed by Peter Atencio. During post-production, I was hired to work on poster concepts. Ultimately, they went with a different poster, but I was rather proud of this design. If you are into creature features, you should totally check it out!"><img src="../img/gallery/thumbs/the-rig.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/wearwhere" data-hlabel="Learn More" data-largesrc="../img/gallery/wearwhere.png" data-title="WearWhere" data-description="An agitprop mobile web app where people could select from their favorite brands, only to discover the horrible working conditions of the workers of their favorite clothes. The hope is people who used the app would reconsider the value of their clothes if they knew the people making the shirts cannot afford the very shirts they make."><img src="../img/gallery/thumbs/wearwhere.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/muffins" data-hlabel="Learn More" data-largesrc="../img/gallery/muffins.png" data-title="Muffins 2 Muffins" data-description="Muffins2Muffins was conceived by Matt Ganuchau who was lead developer and I provided development as well as the visual designer for the eventual Android application. It was eventually abandoned as the needs of grad school quickly took hold."><img src="../img/gallery/thumbs/muffins.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-			<li>
-				<a href="../portfolio/pegleggy" data-hlabel="Learn More" data-largesrc="../img/gallery/pegleggy.jpg" data-title="Pegleggy, 2011" data-description="Pegleggy is a 3D rendered model using Vectorworks. Part of a larger world of characters, the wartorn Pegleggy is there to remind the group of the dangers of repeating history's mistakes. Designed with a pop surrealist aesthetic, Pegleggy was accepted into the ITP Spring Show 2011."><img src="../img/gallery/thumbs/pegleggy.jpg" alt="img01"/>
-				</a>
-			</li>
-			
-		</ul>
-		<!-- <ul>
-			
-				
-					<li>
-						img and href
-					</li>
-				
-			
-				
-					<li>
-						img and href
-					</li>
-				
-			
-				
-					<li>
-						img and href
-					</li>
-				
-			
-				
-					<li>
-						img and href
-					</li>
-				
-			
-				
-					<li>
-						img and href
-					</li>
-				
-			
-		</ul> -->
-
-	</div>
-
-</div>
-    </div>
-    <div class="footer">
-    	<div class="social-media row">
-    		<a class="large-1 small-1" href="http://twitter.com/sippingink"><i class="fa fa-twitter"></i></a>
-    		<a class="large-1 small-1" href="https://github.com/arkany"><i class="fa fa-github"></i></a>
-    		<a class="large-1 small-1" href="http://www.linkedin.com/profile/view?id=16743395"><i class="fa fa-linkedin"></i></a>
-    	</div>
-    </div>
-    <!-- Check for Zepto support, load jQuery if necessary -->
-    <!--script>
-      document.write('<script src=../js/vendor/'
-        + ('__proto__' in {} ? 'zepto' : 'jquery')
-        + '.js><\/script>');
-    </script-->
-    <script type="text/javascript" src="../../js/vendor/jquery.js"></script>
-    <script type="text/javascript" src="../../js/vendor/grid.js"></script>
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-297286-7']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-    </script>
     <script>
-    $(function() {
-        Grid.init();
-    });
-</script>
-  </body>
-</html>
+        lucide.createIcons();
 
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Subtle animation effect for the robot image based on theme
+            const img = document.querySelector('img');
+            if(themeName === 'punk') {
+                img.style.filter = "grayscale(1) contrast(200%) brightness(1.2)";
+                img.style.mixBlendMode = "hard-light";
+            } else if (themeName === 'humanist') {
+                img.style.filter = "sepia(0.5) contrast(90%) brightness(1.1)";
+                img.style.mixBlendMode = "normal";
+            } else {
+                img.style.filter = "grayscale(1) contrast(125%) brightness(90%)";
+                img.style.mixBlendMode = "multiply";
+            }
+        }
+    </script>
+
+</body></html>
