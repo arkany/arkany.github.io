@@ -166,6 +166,23 @@ function canSeeScrollInRoom(roomId) {
 
 let textQueue = [];
 let isTyping = false;
+let typingState = {
+  text: '',
+  index: 0,
+  currentP: null,
+  output: null,
+  container: null,
+  timeoutId: null
+};
+
+function resetTypingState() {
+  typingState.text = '';
+  typingState.index = 0;
+  typingState.currentP = null;
+  typingState.output = null;
+  typingState.container = null;
+  typingState.timeoutId = null;
+}
 
 function initGame() {
   console.log('initGame called, checking if MAP exists:', typeof MAP);
@@ -307,6 +324,9 @@ function handleInput(e) {
     input.value = '';
 
     if (command) {
+      if (isTyping || textQueue.length) {
+        flushTextQueue();
+      }
       renderOutput(`\n> ${command}\n`, true);
       parseCommand(command);
       gameState.moves++;
@@ -338,6 +358,8 @@ function parseCommand(command) {
     's': 'south',
     'e': 'east',
     'w': 'west',
+    'scroll': 'read',
+    'scrolls': 'read',
     'g': 'glossary',
     'h': 'help'
   };
@@ -373,6 +395,15 @@ function parseCommand(command) {
   if (commands[normalizedVerb]) {
     commands[normalizedVerb]();
   } else {
+    // Fallback: commands that mention "scroll" anywhere should map to READ for a specific scroll
+    if (words.length >= 2 && words.some(w => w === 'scroll' || w === 'scrolls')) {
+      const scrollWords = words.filter(w => w !== 'scroll' && w !== 'scrolls');
+      const scrollNoun = scrollWords.join(' ').trim();
+      if (scrollNoun) {
+        read(scrollNoun);
+        return;
+      }
+    }
     renderError("I don't understand that command. Type HELP for assistance.\n");
   }
 }
@@ -582,27 +613,45 @@ function drop(noun) {
 function read(noun) {
   const scrollsInInventory = gameState.inventory.filter(item => item.startsWith('scroll_'));
 
+  const formatScrollNames = () => {
+    return scrollsInInventory.map(item =>
+      item
+        .replace(/^scroll_/, 'scroll ')
+        .replace(/_/g, ' ')
+    );
+  };
+
   const promptForScrollChoice = () => {
     if (scrollsInInventory.length > 1) {
-      const names = scrollsInInventory.map(item =>
-        item.replace(/^scroll_/, '').replace(/_/g, ' ') + ' scroll'
-      );
+      const names = formatScrollNames();
       renderOutput(`Which scroll do you want to read? You have: ${names.join(', ')}.\n\n`);
       return true;
     }
     return false;
   };
 
-  if (!noun) {
-    if (!promptForScrollChoice()) {
-      renderError("Read what?\n");
-    }
+  const lowerNoun = (noun || '').trim().toLowerCase();
+  const isGenericRequest = !noun || lowerNoun === 'scroll' || lowerNoun === 'scrolls' || lowerNoun === 'a scroll' || lowerNoun === 'the scroll' || lowerNoun === 'the scrolls';
+
+  if (!scrollsInInventory.length) {
+    renderError("You don't have any scrolls to read.\n\n");
+    return;
+  }
+
+  if (scrollsInInventory.length > 1 && isGenericRequest) {
+    promptForScrollChoice();
     return;
   }
 
   const normalized = normalizeNoun(noun);
 
-  let scrollToRead = findMatchingScroll(scrollsInInventory, noun);
+  let scrollToRead = null;
+
+  if (isGenericRequest && scrollsInInventory.length === 1) {
+    scrollToRead = scrollsInInventory[0];
+  } else {
+    scrollToRead = findMatchingScroll(scrollsInInventory, noun);
+  }
   if (!scrollToRead) {
     const partialMatch = scrollsInInventory.find(item =>
       item.includes(normalized) || item.replace(/_/g, ' ').includes(noun)
@@ -1070,41 +1119,96 @@ function appendToOutput(text) {
 }
 
 function processTextQueue() {
+  // If nothing left to process, mark typing as done
   if (textQueue.length === 0) {
     isTyping = false;
+    resetTypingState();
     return;
   }
 
   isTyping = true;
-  const text = textQueue.shift();
-  let index = 0;
-  const output = document.getElementById('output');
-  const container = document.getElementById('output-container');
+  typingState.text = textQueue.shift();
+  typingState.index = 0;
+  typingState.output = document.getElementById('output');
+  typingState.container = document.getElementById('output-container');
+  typingState.currentP = document.createElement('p');
 
-  let currentP = document.createElement('p');
-  output.appendChild(currentP);
+  if (!typingState.output || !typingState.container) {
+    resetTypingState();
+    isTyping = false;
+    return;
+  }
 
-  function typeChar() {
-    if (index < text.length) {
-      const char = text[index];
+  typingState.output.appendChild(typingState.currentP);
+
+  const typeChar = () => {
+    if (typingState.index < typingState.text.length) {
+      const char = typingState.text[typingState.index];
       if (char === '\n') {
         const nextP = document.createElement('p');
-        output.appendChild(nextP);
-        currentP = nextP;
+        typingState.output.appendChild(nextP);
+        typingState.currentP = nextP;
       } else {
-        const lastP = output.lastElementChild;
-        lastP.textContent += char;
+        const target = typingState.output.lastElementChild || typingState.currentP;
+        if (target) {
+          target.textContent += char;
+        }
       }
 
-      index++;
-      container.scrollTop = container.scrollHeight;
-      setTimeout(typeChar, 15);
+      typingState.index++;
+      typingState.container.scrollTop = typingState.container.scrollHeight;
+      typingState.timeoutId = setTimeout(typeChar, 15);
     } else {
+      resetTypingState();
+      isTyping = false;
       processTextQueue();
+    }
+  };
+
+  typeChar();
+}
+
+function flushTextQueue() {
+  if (!isTyping && textQueue.length === 0) {
+    return;
+  }
+
+  if (typingState.timeoutId) {
+    clearTimeout(typingState.timeoutId);
+    typingState.timeoutId = null;
+  }
+
+  if (isTyping && typingState.text && typingState.output) {
+    const container = typingState.container || document.getElementById('output-container');
+    let currentP = typingState.currentP || typingState.output.lastElementChild;
+
+    if (!currentP) {
+      currentP = document.createElement('p');
+      typingState.output.appendChild(currentP);
+    }
+
+    for (let i = typingState.index; i < typingState.text.length; i++) {
+      const char = typingState.text[i];
+      if (char === '\n') {
+        const nextP = document.createElement('p');
+        typingState.output.appendChild(nextP);
+        currentP = nextP;
+      } else {
+        currentP.textContent += char;
+      }
+    }
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
     }
   }
 
-  typeChar();
+  while (textQueue.length) {
+    appendToOutput(textQueue.shift());
+  }
+
+  resetTypingState();
+  isTyping = false;
 }
 
 function updateStatus() {
