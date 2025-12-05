@@ -97,7 +97,11 @@ Most importantly of all, Booker’s now seen the original trilogy of Star Wars. 
   {
     id: "autumn",
     title: "Chapter IV - David's Travels & Holiday Reflections",
-    body: `David still loves working at Microsoft and has now moved to the Microsoft AI division, where he is working on both Copilot and GroupMe, the chat app(If you haven’t heard of it, that means your kid isn’t in youth sports OR you’re not in college ;) ). Work travel is slowly returning to normal, and he was fortunate enough flew to New York and San Francisco to meet with coworkers.`,
+    body: `David still loves working at Microsoft and has now moved to the Microsoft AI division, where he is working on both Copilot and GroupMe, the chat app(If you haven’t heard of it, that means your kid isn’t in youth sports OR you’re not in college ;) ). Work travel is slowly returning to normal, and he was fortunate enough flew to New York and San Francisco to meet with coworkers.
+    \n\n
+    Of all the years, this may be the longest. Through all the health challenges, raising Booker, and work stress, I feel incredibly grateful for the stability and love in our lives. I know we're doing something right, since Sarah and Booker are the best improv partners I've ever had. I hope you and yours have a wonderful holiday season, a happy new year, and find that perfect improv partner in your life!
+    
+    Cheers, David, Sarah, and Booker`,
     images: [
       {
         src: "/images/david-1.gif",
