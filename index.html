@@ -1,335 +1,173 @@
-<html lang="en" data-theme="cyberpunk"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Landing</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Fonts -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter's Text Quest - A Holiday Adventure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;family=DM+Serif+Display&amp;family=Permanent+Marker&amp;family=JetBrains+Mono:wght@400;500;800&amp;display=swap" rel="stylesheet">
-
-    <style>
-        /* CSS Variables for Themes */
-        :root[data-theme="cyberpunk"] {
-            --bg-body: #050505;
-            --bg-card-1: #C2423D; /* Red */
-            --bg-card-2: #F2AE5B; /* Yellow */
-            --bg-card-3: #6B906F; /* Green */
-            --bg-card-4: #B0B4B8; /* Gray */
-            --text-main: #111111;
-            --text-inv: #EAEAEA;
-            --font-display: 'JetBrains Mono', monospace;
-            --font-body: 'Space Mono', monospace;
-            --rounded-lg: 24px;
-            --rounded-sm: 8px;
-            --border-width: 0px;
-            --border-color: transparent;
-            --graphic-opacity: 0.8;
-        }
-
-        :root[data-theme="humanist"] {
-            --bg-body: #F5F2EB;
-            --bg-card-1: #D6CCC2; /* Warm Grey */
-            --bg-card-2: #E3D5CA; /* Beige */
-            --bg-card-3: #D5BDAF; /* Taupe */
-            --bg-card-4: #F5EBE0; /* Cream */
-            --text-main: #4A4A4A;
-            --text-inv: #2C2C2C;
-            --font-display: 'DM Serif Display', serif;
-            --font-body: 'Inter', sans-serif;
-            --rounded-lg: 12px;
-            --rounded-sm: 6px;
-            --border-width: 0px;
-            --border-color: transparent;
-            --graphic-opacity: 0.4;
-        }
-
-        :root[data-theme="punk"] {
-            --bg-body: #111111;
-            --bg-card-1: #FF0055; /* Hot Pink */
-            --bg-card-2: #FFE600; /* Yellow */
-            --bg-card-3: #00FFCC; /* Cyan */
-            --bg-card-4: #FFFFFF; /* White */
-            --text-main: #000000;
-            --text-inv: #FFFFFF;
-            --font-display: 'Permanent Marker', cursive;
-            --font-body: 'Inter', sans-serif;
-            --rounded-lg: 0px;
-            --rounded-sm: 0px;
-            --border-width: 2px;
-            --border-color: #000000;
-            --graphic-opacity: 1;
-        }
-
-        /* Utilities leveraging variables */
-        body {
-            background-color: var(--bg-body);
-            transition: background-color 0.5s ease;
-        }
-        .theme-card {
-            border-radius: var(--rounded-lg);
-            border: var(--border-width) solid var(--border-color);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .theme-font-display { font-family: var(--font-display); }
-        .theme-font-body { font-family: var(--font-body); }
-        .graphic-el { opacity: var(--graphic-opacity); }
-        
-        /* Custom noise for cyberpunk feel */
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 50;
-        }
-    </style>
-<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 overflow-x-hidden theme-font-body relative">
-
-    <div class="noise-overlay"></div>
-
-    <!-- Theme Switcher -->
-    <div class="fixed flex bg-white/10 z-50 border-white/10 border rounded-full pt-1 pr-1 pb-1 pl-1 top-6 right-6 backdrop-blur-md gap-x-2 gap-y-2">
-        <button onclick="setTheme('cyberpunk')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-mono hover:bg-white/10 rounded-full transition-colors">CYBER</button>
-        <button onclick="setTheme('humanist')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-sans hover:bg-white/10 rounded-full transition-colors">HUMAN</button>
-        <button onclick="setTheme('punk')" class="px-3 py-1 text-xs text-white/80 hover:text-white font-bold hover:bg-white/10 rounded-full transition-colors">PUNK</button>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:image" content="public/images/hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="public/images/hero.png">
+</head>
+  <body>
+    <div id="hero-screen" role="dialog" aria-label="Game hero screen">
+      <div class="hero-inner">
+        <pre aria-hidden="true" class="hero-ascii">
+ *    *  ()   *   *
+*        * /\         *
+     *   /j\\    *  *
+     *     o/\\  *      *
+ *    ///\j\    *
+     *   /*/o\\  *    *
+   *    /j//\*\      *
+     /o/*\\j\   *
+  *    //j//o\\\\     *
+ * /*////\\\\j\*
+*    //o//j\\*\\\   *
+   * /j///*/\\\\\o\   *
+*    * ||     *
+        </pre>
+        <h1 class="hero-title">2025 Xmas Letter Quest</h1>
+        <p class="hero-subtitle">A cozy holiday text adventure</p>
+        <p class="hero-copy">Type your way through snow-laden halls, uncover the four scrolls, and read our overly elaborate Xmas letter.</p>
+        <button id="start-btn" aria-label="Start the adventure">Press Enter to Begin</button>
+        <p class="hero-meta">&copy; <span id="hero-year"></span> Bramblehurst Games</p>
+      </div>
     </div>
 
-    <!-- Top Graphics -->
-    <div class="w-full max-w-6xl mb-6 flex justify-between items-end text-[var(--text-inv)] opacity-50 px-2 select-none pointer-events-none hidden sm:flex">
-        <div class="text-xs tracking-widest theme-font-display">SYS_READY // V.2.0.4</div>
-        <div class="flex gap-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery-medium" class="lucide lucide-battery-medium w-4 h-4"><path d="M10 14v-4"></path><path d="M22 14v-4"></path><path d="M6 14v-4"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg>
-            <span class="text-xs font-mono">10:42 AM</span>
-        </div>
+    <div id="terminal" class="hidden" role="application" aria-label="Interactive fiction game terminal">
+      <div id="status-bar" role="status" aria-live="polite">
+        <span id="location">Snowy Vestibule</span>
+        <span id="moves">Moves: 0</span>
+        <span id="scrolls">Scrolls: 0/4</span>
+      </div>
+
+      <div id="output-container">
+        <div id="output" role="log" aria-live="polite" aria-atomic="false"></div>
+      </div>
+
+      <div id="input-line">
+        <span class="prompt">&gt;</span>
+        <input
+          type="text"
+          id="input"
+          aria-label="Game command input"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div id="controls">
+        <button id="glossary-btn" aria-label="Toggle glossary">Glossary (G)</button>
+        <button id="fast-text-btn" aria-label="Toggle fast text">Fast Text</button>
+        <button id="theme-btn" aria-label="Cycle terminal theme">Theme: Green</button>
+      </div>
     </div>
 
-    <!-- Main Grid -->
-    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 lg:auto-rows-fr relative z-10">
+    <div id="glossary-panel" class="hidden" role="dialog" aria-labelledby="glossary-title">
+      <div class="glossary-content">
+        <h2 id="glossary-title">COMMAND GLOSSARY</h2>
+        <button class="close-btn" aria-label="Close glossary">[X]</button>
 
-        <!-- Block 1: The Image (Red) - Spans 4 cols, 1 rows height equivalent -->
-        <div class="lg:col-span-4 lg:row-span-1 theme-card bg-[var(--bg-card-1)] text-[var(--text-main)] relative overflow-hidden group min-h-0 lg:min-h-0 h-full flex flex-col justify-between p-6 sm:p-8">
-            <!-- Header -->
-            <div class="flex justify-between items-start z-10">
-                <span class="text-sm font-semibold tracking-tight graphic-el">01</span>
-                <div class="text-right">
-                    <p class="text-[10px] uppercase tracking-widest opacity-70">Role</p>
-                    <p class="text-sm font-semibold">PRODUCT DESIGNER</p>
-                </div>
-            </div>
+        <div class="glossary-section">
+          <h3>VERBS</h3>
+          <dl>
+            <dt>LOOK / L</dt>
+            <dd>Examine your surroundings</dd>
 
-            <!-- Main Visual -->
-            <div class="absolute inset-0 top-16 bottom-24 flex items-center justify-center pointer-events-none">
-                <img data-main-image src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Robot" class="w-[120%] h-[120%] object-cover grayscale contrast-125 brightness-90 mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                
-                <!-- Overlay Graphic -->
-                <div class="absolute top-1/4 left-8 bg-white/90 px-3 py-2 rounded-sm border border-black/10 shadow-lg transform -rotate-2 graphic-el">
-                     <div class="font-mono text-xs mb-1">ID: 59X-77</div>
-                     <div class="h-8 w-24 bg-black/10 flex items-center justify-center overflow-hidden">
-                        <span class="font-barcode text-2xl tracking-tighter scale-y-150">||| |||| | ||</span>
-                     </div>
-                </div>
-            </div>
+            <dt>EXAMINE / X / INSPECT</dt>
+            <dd>Look closely at an object</dd>
 
-            <!-- Footer -->
-            <div class="relative z-10 mt-auto">
-                <h1 class="text-5xl sm:text-7xl theme-font-display leading-none mb-4 graphic-el" style="writing-mode: vertical-rl; text-orientation: mixed; height: auto; position: absolute; bottom: 0; left: -10px; opacity: 0.15;">CREATIVE</h1>
-                <div class="flex justify-between items-end">
-                    <div class="">
-                        <div class="text-4xl sm:text-5xl font-bold mb-2 graphic-el">独創</div>
-                        <div class="h-1 w-12 bg-current rounded-full"></div>
-                    </div>
-                    <div class="flex gap-2">
-                        <div class="w-2 h-2 rounded-full bg-current animate-pulse"></div>
-                        <div class="w-2 h-2 rounded-full bg-current opacity-50"></div>
-                    </div>
-                </div>
-            </div>
+            <dt>INVENTORY / I</dt>
+            <dd>List items you're carrying</dd>
+
+            <dt>TAKE</dt>
+            <dd>Pick up an object</dd>
+
+            <dt>DROP</dt>
+            <dd>Drop an object</dd>
+
+            <dt>READ</dt>
+            <dd>Read text on an object</dd>
+
+            <dt>V / VIEW</dt>
+            <dd>When reading a scroll, open its first image</dd>
+
+            <dt>USE</dt>
+            <dd>Use an item</dd>
+
+            <dt>N / NORTH / S / SOUTH / E / EAST / W / WEST</dt>
+            <dd>Move in cardinal directions</dd>
+
+            <dt>HELP</dt>
+            <dd>Show basic instructions</dd>
+
+            <dt>GLOSSARY / G</dt>
+            <dd>Show this panel</dd>
+
+            <dt>SAVE</dt>
+            <dd>Save your progress</dd>
+
+            <dt>LOAD</dt>
+            <dd>Load saved progress</dd>
+
+            <dt>QUIT</dt>
+            <dd>Exit the game</dd>
+          </dl>
         </div>
 
-        <!-- Right Column Container -->
-        <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 lg:grid-rows-2 lg:auto-rows-fr gap-x-4 gap-y-4">
-            
-            <!-- Block 2: Experience (Yellow) - Wide -->
-            <div class="md:col-span-2 theme-card bg-[var(--bg-card-2)] text-[var(--text-main)] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between min-h-[360px] h-full">
-                <!-- Decorative BG Text -->
-                <div class="absolute top-[-20px] right-[-20px] text-[180px] leading-none font-bold opacity-5 pointer-events-none theme-font-display select-none truncate">EXP</div>
-                
-                <div class="flex justify-between items-start mb-8 relative z-10">
-                    <h2 class="sm:text-5xl theme-font-display uppercase text-3xl font-black tracking-tight">
-  Experience<span class="text-red-500 rounded-full inline-block w-3 h-3 ml-1 mb-4"></span></h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right w-12 h-12 stroke-[1.5px]"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-                </div>
+        <div class="glossary-section">
+          <h3>NOUNS</h3>
+          <dl>
+            <dt>SCROLL</dt>
+            <dd>Ancient parchment with holiday messages</dd>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 relative z-10">
-                    <!-- Stat Card 1 -->
-                    <div class="border-neutral-950/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
-                         <div class="flex justify-between items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bot" class="lucide lucide-bot w-4 h-4 opacity-70"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
-                            <span class="text-[10px] font-mono opacity-60">AI</span>
-                        </div>
-                        <div class="font-bold text-lg leading-tight">Copilot Groups</div>
-                        <div class="text-xs opacity-70 mt-1">Product Design</div>
-                         <div class="flex gap-1 mt-3">
-                            <div class="h-2 w-2 rounded-full bg-current opacity-20"></div>
-                            <div class="h-2 w-2 rounded-full bg-current opacity-40"></div>
-                            <div class="h-2 w-2 rounded-full bg-current opacity-100"></div>
-                        </div>
-                    </div><div class="border-neutral-900/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
-                         <div class="flex justify-between items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-4 h-4 opacity-70"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                            <span class="text-[10px] font-mono opacity-60">GRP</span>
-                        </div>
-                        <div class="font-bold text-lg leading-tight">GroupMe App</div>
-                        <div class="text-xs opacity-70 mt-1" style="">Principal Design Lead</div>
-                        <div class="flex text-[10px] font-mono border-neutral-950/20 border-t mt-3 pt-2 justify-between">
-                            <span class="">V.4.2</span>
-                            <span class="">-&gt;</span>
-                        </div>
-                    </div><div class="border-neutral-900/20 border rounded-[var(--rounded-sm)] pt-4 pr-4 pb-4 pl-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" class="lucide lucide-message-square w-4 h-4 opacity-70"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
-                            <span class="text-[10px] font-mono opacity-60">MSFT</span>
-                        </div>
-                        <div class="font-bold text-lg leading-tight">Microsoft Teams</div>
-                        <div class="text-xs opacity-70 mt-1">Product Designer II - Principal Design Manager</div>
-                        <!-- Micro Chart -->
-                        <div class="flex items-end gap-1 h-8 mt-3 opacity-60">
-                            <div class="w-1 bg-current h-[40%]"></div>
-                            <div class="w-1 bg-current h-[70%]"></div>
-                            <div class="w-1 bg-current h-[50%]"></div>
-                            <div class="w-1 bg-current h-[100%]"></div>
-                        </div>
-                    </div>
+            <dt>KEY</dt>
+            <dd>Unlocks doors</dd>
 
-                    <!-- Stat Card 2 -->
-                    
+            <dt>DOOR</dt>
+            <dd>Passage between rooms</dd>
 
-                    <!-- Stat Card 3 -->
-                    
-                </div>
-
-                <!-- Bottom Strip -->
-                <div class="mt-8 flex items-center gap-4 text-xs font-mono uppercase tracking-widest border-t border-black/10 pt-4 opacity-70">
-                    <span>#EOA15E</span>
-                    <div class="h-px flex-1 bg-current opacity-30"></div>
-                    <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" class="lucide lucide-globe w-3 h-3"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg> CORP.</span>
-                </div>
-            </div>
-
-            <!-- Block 3: History (Green) -->
-            <div class="theme-card bg-[var(--bg-card-3)] text-[var(--text-main)] p-6 sm:p-8 flex flex-col justify-between min-h-[360px] h-full relative">
-                <div class="absolute top-4 right-4 opacity-30">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hourglass" class="lucide lucide-hourglass" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(17, 17, 17);"><path d="M5 22h14"></path><path d="M5 2h14"></path><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path></svg>
-                </div>
-                
-                <div class="">
-                    <div class="inline-block text-[10px] uppercase font-mono bg-black/5 border-neutral-900/30 border rounded-[4px] mb-4 pt-1 pr-2 pb-1 pl-2">
-                        DPM SYSTM
-                    </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-6">Work History</h3>
-                    
-                    <ul class="text-sm font-mono space-y-4">
-                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
-                            <span class="font-semibold">Microsoft</span>
-                            <span class="text-xs opacity-60">2014-Present</span>
-                        </li>
-                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
-                            <span class="font-semibold">Control Group</span>
-                            <span class="text-xs opacity-60">2011-2014</span>
-                        </li>
-                        <li class="flex justify-between items-baseline border-b border-black/10 pb-2">
-                            <span class="font-semibold">TechStars</span>
-                            <span class="text-xs opacity-60">2011</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="flex bg-black/5 border-neutral-900/30 border rounded-[var(--rounded-sm)] mt-6 pt-3 pr-3 pb-3 pl-3 items-center justify-between">
-                    <div class="text-[10px] leading-tight font-mono">
-                        SORT BEFORESENDING
-                    </div>
-                    <div class="theme-font-display text-2xl font-bold tracking-tighter">TS26</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="aperture" class="lucide lucide-aperture w-5 h-5 animate-spin-slow"><circle cx="12" cy="12" r="10"></circle><path d="m14.31 8 5.74 9.94"></path><path d="M9.69 8h11.48"></path><path d="m7.38 12 5.74-9.94"></path><path d="M9.69 16 3.95 6.06"></path><path d="M14.31 16H2.83"></path><path d="m16.62 12-5.74 9.94"></path></svg>
-                </div>
-            </div>
-
-            <!-- Block 4: Misc/About (Gray) -->
-            <div class="theme-card bg-[var(--bg-card-4)] text-[var(--text-main)] p-6 sm:p-8 flex flex-col relative overflow-hidden min-h-[360px] h-full">
-                <!-- Background Pattern -->
-                 <div class="absolute inset-0 opacity-5 pointer-events-none flex flex-wrap gap-4 p-4">
-                     <div class="w-2 h-2 bg-current rounded-full"></div>
-                     <div class="w-2 h-2 bg-current rounded-full"></div>
-                     <div class="w-2 h-2 bg-current rounded-full"></div>
-                     <div class="w-2 h-2 bg-current rounded-full"></div>
-                     <!-- Pattern repeats visually -->
-                 </div>
-
-                <div class="relative z-10">
-                    <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                            <span class="font-mono text-xs mb-1 opacity-60">Retro ai</span>
-                            <h3 class="text-lg font-semibold leading-tight">technology</h3>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="component" class="lucide lucide-component w-6 h-6"><path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"></path><path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z"></path><path d="M8.916 17.912a1 1 0 0 0 0 1.415l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.415l-2.377-2.376a1 1 0 0 0-1.414 0z"></path><path d="M8.916 4.674a1 1 0 0 0 0 1.414l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"></path></svg>
-                    </div>
-                    
-                    <div class="my-auto py-8">
-                        <div class="flex items-baseline">
-                             <span class="text-[120px] leading-none theme-font-display graphic-el font-bold tracking-tighter">14</span>
-                             <span class="text-xl font-mono mb-8 ml-[-8px]">®</span>
-                        </div>
-                        <p class="text-sm opacity-70 mt-[-10px] max-w-[150px]">Years of analyzing digital interfaces.</p>
-                    </div>
-
-                    <div class="mt-auto flex justify-between items-end border-t border-current/20 pt-4">
-                        
-                        <a href="https://www.linkedin.com/in/arkany/" class="hover:underline text-sm font-semibold">LinkedIn</a><div class="flex gap-2">
-                            <div class="w-8 h-4 bg-red-500/20 mix-blend-multiply"></div>
-                            <div class="w-4 h-4 bg-current/20"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <dt>ALTAR</dt>
+            <dd>Sacred holiday shrine</dd>
+          </dl>
         </div>
-    </main>
-
-    <!-- Bottom Micrographics -->
-    <div class="w-full max-w-6xl mt-6 flex justify-between items-start text-[var(--text-inv)] opacity-40 px-2 select-none pointer-events-none text-[10px] font-mono hidden sm:flex">
-        <div class="flex gap-8">
-            <span>COORD: 34.0522° N, 118.2437° W</span>
-            <span>MEM: 64TB</span>
-        </div>
-        <div class="flex flex-col items-end gap-1">
-            <div class="w-32 h-1 bg-current/30 overflow-hidden">
-                <div class="w-1/3 h-full bg-current animate-pulse"></div>
-            </div>
-            <span>RENDER_QUEUE_EMPTY</span>
-        </div>
+      </div>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <div id="modal" class="hidden" role="dialog" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-content">
+        <h2 id="modal-title"></h2>
+        <div id="modal-body"></div>
+        <div id="modal-image"></div>
+        <button class="close-btn" aria-label="Close">Press ESC to continue</button>
+      </div>
+    </div>
 
-        function setTheme(themeName) {
-            document.documentElement.setAttribute('data-theme', themeName);
-            
-            // Subtle animation effect for the robot image based on theme
-            const img = document.querySelector('img');
-            if(themeName === 'punk') {
-                img.style.filter = "grayscale(1) contrast(200%) brightness(1.2)";
-                img.style.mixBlendMode = "hard-light";
-            } else if (themeName === 'humanist') {
-                img.style.filter = "sepia(0.5) contrast(90%) brightness(1.1)";
-                img.style.mixBlendMode = "normal";
-            } else {
-                img.style.filter = "grayscale(1) contrast(125%) brightness(90%)";
-                img.style.mixBlendMode = "multiply";
-            }
-        }
-    </script>
+    <div id="image-viewer" class="hidden" role="dialog" aria-label="Expanded image viewer" tabindex="-1">
+      <div class="image-viewer-frame">
+        <button id="image-viewer-close" aria-label="Close image viewer">[X]</button>
+        <img src="" alt="" />
+        <p class="viewer-caption"></p>
+        <p class="viewer-hint">Press X to close</p>
+      </div>
+    </div>
 
-</body></html>
+    <div id="end-sequence" class="hidden">
+      <div class="end-content">
+        <pre id="ascii-art" aria-label="Happy Holidays ASCII art"></pre>
+        <div id="confetti" aria-hidden="true"></div>
+        <div id="image-gallery"></div>
+        <button id="share-btn">Share This Adventure</button>
+        <button id="restart-btn">Play Again</button>
+      </div>
+    </div>
+
+    <script src="content.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
