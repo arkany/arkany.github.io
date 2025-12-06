@@ -518,6 +518,13 @@ function take(noun) {
   const normalized = normalizeNoun(noun);
   const scrollNormalized = 'scroll_' + normalized;
   const items = gameState.roomItems[gameState.currentRoom] || [];
+  const lowerNoun = (noun || '').toLowerCase();
+  const isKeyRequest =
+    lowerNoun === 'key' ||
+    lowerNoun === 'gold key' ||
+    lowerNoun === 'golden key' ||
+    lowerNoun.includes(' gold key') ||
+    lowerNoun.includes(' golden key');
 
   let itemToTake = null;
   if (items.includes(normalized)) {
@@ -535,6 +542,9 @@ function take(noun) {
   if (!itemToTake) {
     const found = items.find(item => item.includes(normalized) || item.replace(/_/g, ' ').includes(noun));
     if (found) itemToTake = found;
+  }
+  if (!itemToTake && isKeyRequest && items.includes('gold_key')) {
+    itemToTake = 'gold_key';
   }
 
   if (gameState.currentRoom === 'vault' && !gameState.vaultUnlocked) {
@@ -705,11 +715,16 @@ function use(noun) {
     return;
   }
 
-  const normalized = noun.replace(/\s+/g, '_');
+  const normalized = normalizeNoun(noun);
   const hasGoldKey = gameState.inventory.includes('gold_key');
-  const isGoldKey =
-    hasGoldKey &&
-    (normalized === 'gold_key' || normalized === 'key' || noun.toLowerCase().includes('gold'));
+  const lowerNoun = (noun || '').toLowerCase();
+  const isKeyTerm =
+    normalized === 'gold_key' ||
+    normalized === 'key' ||
+    normalized === 'golden_key' ||
+    lowerNoun.includes('gold key') ||
+    lowerNoun.includes('golden key');
+  const isGoldKey = hasGoldKey && isKeyTerm;
 
   if (isGoldKey) {
     if (gameState.currentRoom === 'vestibule') {
