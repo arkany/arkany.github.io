@@ -136,7 +136,7 @@ const MAP = {
     name: "Snowy Vestibule",
     description: `You stand in a grand vestibule, its floor covered with freshly fallen snow that somehow remains perfectly pristine. You get the sense that Mariah Carey is thawing nearby, humming a festive tune.
 
-Fun fact: Part of why I wanted to make this an interactive card this year is the open sourcing of the game ZORK. ZORK was one of the first text adventure game for the personal computer. Ernie, my stepdad, was their first program manager and is one of the creatures in the game, the brogmoid. So, in a way, this game is a tribute to him and all the fun I had playing ZORK as a kid.
+Fun fact: Part of why I wanted to make this an interactive card this year is the open sourcing of the game ZORK. ZORK was one of the first text adventure game for the personal computer. Ernie, my stepdad, was their first production manager and is one of the creatures in the game, the brogmoid. So, in a way, this game is a tribute to him and all the fun I had playing ZORK as a kid.
 
 A PRIMER FOR NEW TRAVELERS: type LOOK to re-read the room, EXAMINE anything curious, TAKE items, and INVENTORY to check your pockets. Use N/S/E/W to move, and type HELP or G for more commands.
 
