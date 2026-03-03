@@ -5,8 +5,9 @@
     <title>Personal Dossier - Arkany</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital@1&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Mrs+Saint+Delafield&display=swap');
 
       body {
         font-family: 'JetBrains Mono', monospace;
@@ -45,7 +46,7 @@
                 <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
                   Classification
                 </span>
-                <span class="text-sm uppercase font-medium">
+                <span class="text-sm uppercase font-medium" >
                   Personal Dossier
                 </span>
               </div>
@@ -53,11 +54,11 @@
                 <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
                   Clearance
                 </span>
-                <span class="text-sm uppercase font-medium">Public Access</span>
+                <span class="text-sm uppercase font-medium" >Public Access</span>
               </div>
             </div>
             <div class="mt-8">
-              <h1 class="text-2xl sm:text-3xl tracking-tight uppercase font-medium">
+              <h1 class="text-2xl sm:text-3xl tracking-tight uppercase font-medium" data-scramble>
                 Interaction
                 <br>
                 Designer
@@ -65,8 +66,8 @@
             </div>
           </div>
           <!-- Right Number Area -->
-          <div class="w-full sm:w-[30%] p-6 sm:p-8 flex items-center justify-center sm:justify-end bg-[#e8e4db] group cursor-default transition-colors hover:bg-[#e2ded3]">
-            <span class="text-6xl sm:text-7xl tracking-tight text-[#c22d2d] font-normal group-hover:scale-105 transition-transform duration-500">
+          <div class="w-full sm:w-[30%] p-4 sm:p-8 flex items-center justify-center sm:justify-end bg-[#e8e4db] group cursor-default transition-colors hover:bg-[#e2ded3]">
+            <span class="text-5xl sm:text-7xl tracking-tight text-[#c22d2d] font-normal group-hover:scale-105 transition-transform duration-500" data-scramble data-scramble-chars="0123456789">
               2411
             </span>
           </div>
@@ -82,23 +83,28 @@
               </span>
             </div>
             <div class="p-3 flex-1 flex items-center">
-              <span class="sm:text-lg text-base tracking-wide">David Phillips</span>
+              <span class="sm:text-lg text-base tracking-wide" data-scramble>David Phillips</span>
             </div>
           </div>
-          <!-- Date -->
-          <div class="w-full sm:w-[30%] flex group hover:bg-[#e8e4db] transition-colors cursor-default flex-col sm:flex-row">
-            <div class="p-3 sm:border-r-[1.5px] border-[#1a1a1a] w-full sm:w-28 flex items-center border-b-[1.5px] sm:border-b-0">
-              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
-                Date
-              </span>
+          <!-- Date & No. of Pieces -->
+          <div class="w-full sm:w-[30%] flex flex-col">
+            <!-- Date sub-row -->
+            <div class="flex group hover:bg-[#e8e4db] transition-colors cursor-default border-b-[1.5px] border-[#1a1a1a]">
+              <div class="p-3 border-r-[1.5px] border-[#1a1a1a] w-28 sm:w-auto sm:px-3 flex items-center shrink-0">
+                <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">Date</span>
+              </div>
+              <div class="p-3 flex-1 flex items-center">
+                <span class="text-base sm:text-lg" id="current-date" data-scramble data-scramble-chars="0123456789/">01/03/2026</span>
+              </div>
             </div>
-            <div class="p-3 flex-1 flex flex-col justify-center">
-              <span class="text-base sm:text-lg" id="current-date">01/03/2026</span>
-              <div class="w-full h-[1.5px] bg-[#1a1a1a] my-2"></div>
-              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70 mb-1">
-                No. Of Pieces
-              </span>
-              <span class="text-base text-center w-full block">—</span>
+            <!-- No. of Pieces sub-row -->
+            <div class="flex group hover:bg-[#e8e4db] transition-colors cursor-default">
+              <div class="p-3 border-r-[1.5px] border-[#1a1a1a] w-28 sm:w-auto sm:px-3 flex items-center shrink-0">
+                <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">No. Of Pieces</span>
+              </div>
+              <div class="p-3 flex-1 flex items-center justify-center">
+                <span class="text-base">—</span>
+              </div>
             </div>
           </div>
         </div>
@@ -112,7 +118,7 @@
               </span>
             </div>
             <div class="p-3 flex-1 flex items-center">
-              <span class="text-base sm:text-lg tracking-wide">
+              <span class="text-base sm:text-lg tracking-wide" data-scramble>
                 Pacific Northwest, US
               </span>
             </div>
@@ -152,14 +158,14 @@
             </span>
           </div>
           <div class="p-6 sm:p-12 sm:pt-16 flex items-center justify-center min-h-[220px]">
-            <p class="sm:text-xl leading-loose sm:text-left text-lg font-normal text-center max-w-3xl">Tasked with the synthesis of human-computer interaction paradigms. Current operational focus involves shaping high-fidelity interfaces and product strategies at <span class="font-medium">Microsoft AI</span> and <span class="font-medium">GroupMe</span> . Previous foundational deployments executed at <span class="font-medium">Microsoft Teams</span>, <span class="font-medium">Bing</span>, and <span class="font-medium">Control Group</span>.</p>
+            <p class="sm:text-xl leading-loose sm:text-left text-lg font-normal text-center max-w-3xl" data-scramble>Tasked with the synthesis of human-computer interaction paradigms. Current operational focus involves shaping high-fidelity interfaces and product strategies at <span class="font-medium">Microsoft AI</span> and <span class="font-medium">GroupMe</span> . Previous foundational deployments executed at <span class="font-medium">Microsoft Teams</span>, <span class="font-medium">Bing</span>, and <span class="font-medium">Control Group</span>.</p>
           </div>
         </div>
 
         <!-- ROW 6: Footer Instructions & Signature -->
-        <div class="flex flex-col sm:flex-row border-b-[1.5px] border-[#1a1a1a]">
+        <div class="flex flex-col md:flex-row border-b-[1.5px] border-[#1a1a1a]">
           <!-- Instructions / Links -->
-          <div class="w-full sm:w-[60%] border-r-0 sm:border-r-[1.5px] border-b-[1.5px] sm:border-b-0 border-[#1a1a1a] p-4 sm:p-6 flex flex-col justify-between group bg-[#e8e4db]/40">
+          <div class="w-full md:w-[60%] border-r-0 md:border-r-[1.5px] border-b-[1.5px] md:border-b-0 border-[#1a1a1a] p-4 md:p-6 flex flex-col justify-between group bg-[#e8e4db]/40">
             <div class="flex justify-between items-start mb-6">
               <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
                 Special Instructions
@@ -183,24 +189,22 @@
           </div>
 
           <!-- Signature Block -->
-          <div class="w-full sm:w-[40%] p-4 sm:p-6 flex flex-col justify-between relative bg-white/30 hover:bg-[#e8e4db] transition-colors cursor-default">
-            <div class="flex justify-between items-end w-full h-full">
-              <div class="flex flex-col text-right w-full">
-                <span class="text-xs tracking-widest uppercase mb-1 text-[#1a1a1a]/70 text-left">
-                  Authorization
-                </span>
-                <span class="text-base tracking-tight font-medium uppercase mt-2">
-                  Bureau of
-                  <br>
-                  Design
-                </span>
-              </div>
-              <!-- Handwritten signature -->
-              <div class="absolute bottom-4 right-6 opacity-90 -rotate-3 mix-blend-multiply">
-                <span style="font-family: 'Playfair Display', serif;" class="italic text-4xl sm:text-5xl text-[#1a1a1a]">
-                  A. Arkany
-                </span>
-              </div>
+          <div class="w-full md:w-[40%] p-4 md:p-6 flex flex-col justify-between relative bg-white/30 hover:bg-[#e8e4db] transition-colors cursor-default min-h-[120px] md:min-h-0">
+            <div class="flex justify-between items-start w-full">
+              <span class="text-xs tracking-widest uppercase mb-1 text-[#1a1a1a]/70">
+                Authorization
+              </span>
+              <span class="text-base tracking-tight font-medium uppercase text-right">
+                Bureau of
+                <br>
+                Design
+              </span>
+            </div>
+            <!-- Handwritten signature -->
+            <div class="absolute bottom-4 right-6 opacity-90 -rotate-3 mix-blend-multiply">
+              <span style="font-family: 'Mrs Saint Delafield', cursive;" class="text-4xl md:text-6xl text-[#1a1a1a]">
+                D. Phillips
+              </span>
             </div>
           </div>
         </div>
@@ -211,10 +215,11 @@
             Inspect
           </div>
           <div class="sm:w-[15%] border-b-[1.5px] sm:border-b-0 sm:border-r-[1.5px] flex hover:bg-[#1a1a1a] hover:text-[#edeae1] transition-colors cursor-pointer uppercase text-xs tracking-widest w-full border-[#1a1a1a] border-r-0 pt-2 pr-2 pb-2 pl-2 items-center justify-center">Hard fork</div>
-          <div class="w-full sm:w-[70%] p-2 flex items-center justify-center sm:justify-start sm:px-4 text-xs uppercase tracking-widest text-[#1a1a1a]/80 group">
+          <div class="sm:w-[15%] border-b-[1.5px] sm:border-b-0 sm:border-r-[1.5px] flex hover:bg-[#1a1a1a] hover:text-[#edeae1] transition-colors cursor-pointer uppercase text-xs tracking-widest w-full border-[#1a1a1a] border-r-0 pt-2 pr-2 pb-2 pl-2 items-center justify-center" onclick="window.location.href='/xmas2025/'" role="button">Proj. Holiday</div>
+          <div class="w-full sm:w-[55%] p-2 flex items-center justify-center sm:justify-start sm:px-4 text-xs uppercase tracking-widest text-[#1a1a1a]/80 group">
             <div class="flex items-center space-x-2">
               <div class="w-1.5 h-1.5 bg-[#c22d2d] rounded-full animate-pulse"></div>
-              <span>System Operational. A long-form story.</span>
+              <span data-scramble>System Operational.</span>
             </div>
           </div>
         </div>
@@ -230,6 +235,113 @@
         year: 'numeric'
       });
       document.getElementById('current-date').innerText = formattedDate;
+    </script>
+
+    <script>
+      // Scrambled text effect — mouse-proximity character scramble
+      (function () {
+        const DEFAULT_CHARS = '.:';
+        const RADIUS = 100;
+        const DURATION = 1.2;
+        const SPEED = 0.5;
+
+        // Wrap characters in text nodes with individual spans,
+        // grouping by word so inline-block spans don't break mid-word.
+        function wrapChars(el) {
+          const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+          const textNodes = [];
+          while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+          textNodes.forEach(node => {
+            const text = node.nodeValue;
+            if (!text.trim()) return;
+
+            const frag = document.createDocumentFragment();
+            // Split into words and whitespace tokens
+            const tokens = text.match(/\S+|\s+/g) || [];
+
+            tokens.forEach(token => {
+              if (/^\s+$/.test(token)) {
+                // Preserve whitespace as-is
+                frag.appendChild(document.createTextNode(token));
+              } else {
+                // Wrap each word in a nobr container so it won't line-break mid-word
+                const wordWrap = document.createElement('span');
+                wordWrap.style.whiteSpace = 'nowrap';
+                wordWrap.style.display = 'inline';
+                for (let i = 0; i < token.length; i++) {
+                  const ch = token[i];
+                  const span = document.createElement('span');
+                  span.textContent = ch;
+                  span.dataset.originalChar = ch;
+                  span.style.display = 'inline-block';
+                  span.style.whiteSpace = 'pre';
+                  span.style.minWidth = '0.5ch';
+                  wordWrap.appendChild(span);
+                }
+                frag.appendChild(wordWrap);
+              }
+            });
+            node.parentNode.replaceChild(frag, node);
+          });
+        }
+
+        // Scramble a single character span
+        function scrambleChar(span, scrambleChars) {
+          if (span._scrambling) return;
+          span._scrambling = true;
+
+          const original = span.dataset.originalChar;
+          const steps = Math.ceil(DURATION / SPEED * 10);
+          let step = 0;
+
+          const interval = setInterval(() => {
+            span.textContent = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            step++;
+            if (step >= steps) {
+              clearInterval(interval);
+              // Animate back to original
+              gsap.to(span, {
+                duration: 0.15,
+                onComplete: () => {
+                  span.textContent = original;
+                  span._scrambling = false;
+                }
+              });
+            }
+          }, SPEED * 100);
+        }
+
+        // Initialize all scramble targets
+        const targets = document.querySelectorAll('[data-scramble]');
+        const allCharSpans = [];
+
+        targets.forEach(el => {
+          const scrambleChars = el.dataset.scrambleChars || DEFAULT_CHARS;
+          wrapChars(el);
+
+          el.querySelectorAll('span[data-original-char]').forEach(span => {
+            allCharSpans.push({ span, scrambleChars, el });
+          });
+        });
+
+        // Track mouse and scramble nearby characters
+        document.addEventListener('mousemove', (e) => {
+          const mx = e.clientX;
+          const my = e.clientY;
+
+          allCharSpans.forEach(({ span, scrambleChars }) => {
+            const rect = span.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
+
+            if (dist < RADIUS) {
+              scrambleChar(span, scrambleChars);
+            }
+          });
+        });
+      })();
     </script>
   </body>
 </html>
