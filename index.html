@@ -1,175 +1,235 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noimageindex,noarchive">
-    <meta name="googlebot" content="noimageindex">
-  <title>2025 Xmas Letter Quest - A Holiday Adventure</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <meta property="og:image" content="public/images/hero.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="public/images/hero.png">
-</head>
-  <body>
-    <div id="hero-screen" role="dialog" aria-label="Game hero screen">
-      <div class="hero-inner">
-        <pre aria-hidden="true" class="hero-ascii">
- *    *  ()   *   *
-*        * /\         *
-     *   /j\\    *  *
-     *     o/\\  *      *
- *    ///\j\    *
-     *   /*/o\\  *    *
-   *    /j//\*\      *
-     /o/*\\j\   *
-  *    //j//o\\\\     *
- * /*////\\\\j\*
-*    //o//j\\*\\\   *
-   * /j///*/\\\\\o\   *
-*    * ||     *
-        </pre>
-        <h1 class="hero-title">2025 Xmas Letter Quest</h1>
-        <p class="hero-subtitle">A cozy holiday text adventure</p>
-        <p class="hero-copy">Type your way through snow-laden halls, uncover the four scrolls, and read our overly elaborate Xmas letter.</p>
-        <button id="start-btn" aria-label="Start the adventure">Press Enter to Begin</button>
-        <p class="hero-meta">&copy; <span id="hero-year"></span> Bramblehurst Games</p>
-      </div>
-    </div>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dossier - Arkany</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital@1&display=swap');
 
-    <div id="terminal" class="hidden" role="application" aria-label="Interactive fiction game terminal">
-      <div id="status-bar" role="status" aria-live="polite">
-        <span id="location">Snowy Vestibule</span>
-        <span id="moves">Moves: 0</span>
-        <span id="scrolls">Scrolls: 0/4</span>
-      </div>
+      body {
+        font-family: 'JetBrains Mono', monospace;
+        background-color: #000000;
+        color: #1a1a1a;
+        -webkit-font-smoothing: antialiased;
+      }
 
-      <div id="output-container">
-        <div id="output" role="log" aria-live="polite" aria-atomic="false"></div>
-      </div>
+      /* Imperfect hand-drawn circle effect */
+      .drawn-circle {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: rotate(-3deg);
+        border: 1.5px solid #1a1a1a;
+      }
 
-      <div id="input-line">
-        <span class="prompt">&gt;</span>
-        <input
-          type="text"
-          id="input"
-          aria-label="Game command input"
-          autocomplete="off"
-          spellcheck="false"
-        />
-      </div>
+      .drawn-circle-hover {
+        border-radius: 50% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(4deg);
+        border: 1.5px solid #1a1a1a;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex items-center justify-center sm:p-12 selection:bg-[#c22d2d] selection:text-[#edeae1] pt-4 pr-4 pb-4 pl-4">
+    <!-- Main Canvas / Paper Background -->
+    <main class="w-full max-w-5xl bg-[#edeae1] shadow-2xl relative overflow-hidden flex flex-col">
+      <!-- Subtle paper texture overlay -->
+      <div class="absolute inset-0 pointer-events-none opacity-[0.04]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
 
-      <div id="controls">
-        <button id="glossary-btn" aria-label="Toggle glossary">Glossary (G)</button>
-        <button id="fast-text-btn" aria-label="Toggle fast text">Fast Text</button>
-        <button id="theme-btn" aria-label="Cycle terminal theme">Theme: Green</button>
-      </div>
-    </div>
-
-    <div id="glossary-panel" class="hidden" role="dialog" aria-labelledby="glossary-title">
-      <div class="glossary-content">
-        <h2 id="glossary-title">COMMAND GLOSSARY</h2>
-        <button class="close-btn" aria-label="Close glossary">[X]</button>
-
-        <div class="glossary-section">
-          <h3>VERBS</h3>
-          <dl>
-            <dt>LOOK / L</dt>
-            <dd>Examine your surroundings</dd>
-
-            <dt>EXAMINE / X / INSPECT</dt>
-            <dd>Look closely at an object</dd>
-
-            <dt>INVENTORY / I</dt>
-            <dd>List items you're carrying</dd>
-
-            <dt>TAKE</dt>
-            <dd>Pick up an object</dd>
-
-            <dt>DROP</dt>
-            <dd>Drop an object</dd>
-
-            <dt>READ</dt>
-            <dd>Read text on an object</dd>
-
-            <dt>V / VIEW</dt>
-            <dd>When reading a scroll, open its first image</dd>
-
-            <dt>USE</dt>
-            <dd>Use an item</dd>
-
-            <dt>N / NORTH / S / SOUTH / E / EAST / W / WEST</dt>
-            <dd>Move in cardinal directions</dd>
-
-            <dt>HELP</dt>
-            <dd>Show basic instructions</dd>
-
-            <dt>GLOSSARY / G</dt>
-            <dd>Show this panel</dd>
-
-            <dt>SAVE</dt>
-            <dd>Save your progress</dd>
-
-            <dt>LOAD</dt>
-            <dd>Load saved progress</dd>
-
-            <dt>QUIT</dt>
-            <dd>Exit the game</dd>
-          </dl>
+      <div class="relative z-10 flex flex-col border-[1.5px] border-[#1a1a1a] m-4 sm:m-8">
+        <!-- ROW 1: Header / Batch Number -->
+        <div class="flex flex-col sm:flex-row border-b-[1.5px] border-[#1a1a1a]">
+          <!-- Left Title Area -->
+          <div class="w-full sm:w-[70%] border-r-0 sm:border-r-[1.5px] border-[#1a1a1a] p-6 sm:p-8 flex flex-col justify-between min-h-[180px]">
+            <div class="flex justify-between w-full max-w-sm">
+              <div class="flex flex-col space-y-2">
+                <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                  Classification
+                </span>
+                <span class="text-sm uppercase font-medium">
+                  Personal Dossier
+                </span>
+              </div>
+              <div class="flex flex-col space-y-2">
+                <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                  Clearance
+                </span>
+                <span class="text-sm uppercase font-medium">Public Access</span>
+              </div>
+            </div>
+            <div class="mt-8">
+              <h1 class="text-2xl sm:text-3xl tracking-tight uppercase font-medium">
+                Interaction
+                <br>
+                Designer
+              </h1>
+            </div>
+          </div>
+          <!-- Right Number Area -->
+          <div class="w-full sm:w-[30%] p-6 sm:p-8 flex items-center justify-center sm:justify-end bg-[#e8e4db] group cursor-default transition-colors hover:bg-[#e2ded3]">
+            <span class="text-6xl sm:text-7xl tracking-tight text-[#c22d2d] font-normal group-hover:scale-105 transition-transform duration-500">
+              2411
+            </span>
+          </div>
         </div>
 
-        <div class="glossary-section">
-          <h3>NOUNS</h3>
-          <dl>
-            <dt>SCROLL</dt>
-            <dd>Ancient parchment with holiday messages</dd>
+        <!-- ROW 2: Name & Date -->
+        <div class="flex flex-col sm:flex-row border-b-[1.5px] border-[#1a1a1a]">
+          <!-- Name -->
+          <div class="w-full sm:w-[70%] border-r-0 sm:border-r-[1.5px] border-b-[1.5px] sm:border-b-0 border-[#1a1a1a] flex group hover:bg-[#e8e4db] transition-colors cursor-default">
+            <div class="p-3 border-r-[1.5px] border-[#1a1a1a] w-28 sm:w-36 flex items-center">
+              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                Name
+              </span>
+            </div>
+            <div class="p-3 flex-1 flex items-center">
+              <span class="sm:text-lg text-base tracking-wide">David Phillips</span>
+            </div>
+          </div>
+          <!-- Date -->
+          <div class="w-full sm:w-[30%] flex group hover:bg-[#e8e4db] transition-colors cursor-default flex-col sm:flex-row">
+            <div class="p-3 sm:border-r-[1.5px] border-[#1a1a1a] w-full sm:w-28 flex items-center border-b-[1.5px] sm:border-b-0">
+              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                Date
+              </span>
+            </div>
+            <div class="p-3 flex-1 flex flex-col justify-center">
+              <span class="text-base sm:text-lg" id="current-date">01/03/2026</span>
+              <div class="w-full h-[1.5px] bg-[#1a1a1a] my-2"></div>
+              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70 mb-1">
+                No. Of Pieces
+              </span>
+              <span class="text-base text-center w-full block">—</span>
+            </div>
+          </div>
+        </div>
 
-            <dt>KEY</dt>
-            <dd>Unlocks doors</dd>
+        <!-- ROW 3: Address / Location -->
+        <div class="flex flex-col sm:flex-row border-b-[1.5px] border-[#1a1a1a]">
+          <div class="w-full flex group hover:bg-[#e8e4db] transition-colors cursor-default">
+            <div class="p-3 border-r-[1.5px] border-[#1a1a1a] w-28 sm:w-36 flex items-center">
+              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                Base of Opr
+              </span>
+            </div>
+            <div class="p-3 flex-1 flex items-center">
+              <span class="text-base sm:text-lg tracking-wide">
+                Pacific Northwest, US
+              </span>
+            </div>
+          </div>
+        </div>
 
-            <dt>DOOR</dt>
-            <dd>Passage between rooms</dd>
+        <!-- ROW 4: Competencies Grid (Microinteractions) -->
+        <div class="flex border-b-[1.5px] border-[#1a1a1a] overflow-x-auto">
+          <div class="flex-1 min-w-[70px] border-r-[1.5px] border-[#1a1a1a] p-3 text-center cursor-pointer group hover:bg-[#e8e4db] transition-colors">
+            <span class="text-base block uppercase">IXD</span>
+          </div>
+          <div class="flex-1 min-w-[70px] border-r-[1.5px] border-[#1a1a1a] p-3 text-center cursor-pointer group hover:bg-[#e8e4db] transition-colors relative">
+            <span class="text-base block uppercase relative z-10">UI</span>
+            <div class="absolute inset-1 drawn-circle-hover opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100"></div>
+          </div>
+          <div class="flex-1 min-w-[70px] border-r-[1.5px] border-[#1a1a1a] p-3 text-center cursor-pointer group bg-[#e8e4db] relative">
+            <span class="text-base block uppercase relative z-10">UX</span>
+            <div class="absolute inset-1.5 drawn-circle scale-100"></div>
+          </div>
+          <div class="flex-1 min-w-[70px] border-r-[1.5px] border-[#1a1a1a] p-3 text-center cursor-pointer group hover:bg-[#e8e4db] transition-colors relative">
+            <span class="text-base block uppercase relative z-10">AI</span>
+            <div class="absolute inset-1 drawn-circle-hover opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100"></div>
+          </div>
+          <div class="flex-1 min-w-[70px] border-r-[1.5px] border-[#1a1a1a] p-3 text-center cursor-pointer group hover:bg-[#e8e4db] transition-colors">
+            <span class="text-base block uppercase">PROD</span>
+          </div>
+          <div class="flex-1 min-w-[70px] p-3 text-center cursor-pointer group hover:bg-[#e8e4db] transition-colors">
+            <span class="text-base block uppercase">RSRH</span>
+          </div>
+        </div>
 
-            <dt>ALTAR</dt>
-            <dd>Sacred holiday shrine</dd>
-          </dl>
+        <!-- ROW 5: Description Block -->
+        <div class="flex flex-col border-b-[1.5px] border-[#1a1a1a] relative">
+          <div class="p-3 border-b-[1.5px] border-[#1a1a1a] sm:border-none sm:absolute sm:top-0 sm:left-0 sm:p-4">
+            <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+              Description
+            </span>
+          </div>
+          <div class="p-6 sm:p-12 sm:pt-16 flex items-center justify-center min-h-[220px]">
+            <p class="sm:text-xl leading-loose sm:text-left text-lg font-normal text-center max-w-3xl">Tasked with the synthesis of human-computer interaction paradigms. Current operational focus involves shaping high-fidelity interfaces and product strategies at <span class="font-medium">Microsoft AI</span> and <span class="font-medium">GroupMe</span> . Previous foundational deployments executed at <span class="font-medium">Microsoft Teams</span>, <span class="font-medium">Bing</span>, and <span class="font-medium">Control Group</span>.</p>
+          </div>
+        </div>
+
+        <!-- ROW 6: Footer Instructions & Signature -->
+        <div class="flex flex-col sm:flex-row border-b-[1.5px] border-[#1a1a1a]">
+          <!-- Instructions / Links -->
+          <div class="w-full sm:w-[60%] border-r-0 sm:border-r-[1.5px] border-b-[1.5px] sm:border-b-0 border-[#1a1a1a] p-4 sm:p-6 flex flex-col justify-between group bg-[#e8e4db]/40">
+            <div class="flex justify-between items-start mb-6">
+              <span class="text-xs uppercase tracking-widest text-[#1a1a1a]/70">
+                Special Instructions
+              </span>
+              <span class="text-base">11:00 – 19:00</span>
+            </div>
+            <div class="flex flex-wrap gap-6 mt-auto">
+              <a href="#" class="inline-flex items-center space-x-2 text-base border-b-[1.5px] border-transparent hover:border-[#1a1a1a] transition-all pb-0.5 group/link">
+                <iconify-icon icon="solar:letter-linear" width="20" height="20" class="text-[#1a1a1a]/60 group-hover/link:text-[#1a1a1a] transition-colors"></iconify-icon>
+                <span class="">Dispatch</span>
+              </a>
+              <a href="#" target="_blank" class="inline-flex items-center space-x-2 text-base border-b-[1.5px] border-transparent hover:border-[#1a1a1a] transition-all pb-0.5 group/link">
+                <iconify-icon icon="lucide:github" width="20" height="20" class="text-[#1a1a1a]/60 group-hover/link:text-[#1a1a1a] transition-colors"></iconify-icon>
+                <span class="">Schematics</span>
+              </a>
+              <a href="https://www.linkedin.com/in/arkany/" target="_blank" class="inline-flex items-center space-x-2 text-base border-b-[1.5px] border-transparent hover:border-[#1a1a1a] transition-all pb-0.5 group/link">
+                <iconify-icon icon="lucide:linkedin" width="20" height="20" class="text-[#1a1a1a]/60 group-hover/link:text-[#1a1a1a] transition-colors"></iconify-icon>
+                <span>Affiliations</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Signature Block -->
+          <div class="w-full sm:w-[40%] p-4 sm:p-6 flex flex-col justify-between relative bg-white/30 hover:bg-[#e8e4db] transition-colors cursor-default">
+            <div class="flex justify-between items-end w-full h-full">
+              <div class="flex flex-col text-right w-full">
+                <span class="text-xs tracking-widest uppercase mb-1 text-[#1a1a1a]/70 text-left">
+                  Authorization
+                </span>
+                <span class="text-base tracking-tight font-medium uppercase mt-2">
+                  Bureau of
+                  <br>
+                  Design
+                </span>
+              </div>
+              <!-- Handwritten signature -->
+              <div class="absolute bottom-4 right-6 opacity-90 -rotate-3 mix-blend-multiply">
+                <span style="font-family: 'Playfair Display', serif;" class="italic text-4xl sm:text-5xl text-[#1a1a1a]">
+                  A. Arkany
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 7: Terminal / Sub-status -->
+        <div class="flex flex-col sm:flex-row">
+          <div class="sm:w-[15%] border-b-[1.5px] sm:border-b-0 sm:border-r-[1.5px] flex hover:bg-[#1a1a1a] hover:text-[#edeae1] transition-colors cursor-pointer uppercase text-xs tracking-widest w-full border-[#1a1a1a] border-r-0 pt-2 pr-2 pb-2 pl-2 items-center justify-center" onclick="window.location.href='https://groupme.com'" role="button">
+            Inspect
+          </div>
+          <div class="sm:w-[15%] border-b-[1.5px] sm:border-b-0 sm:border-r-[1.5px] flex hover:bg-[#1a1a1a] hover:text-[#edeae1] transition-colors cursor-pointer uppercase text-xs tracking-widest w-full border-[#1a1a1a] border-r-0 pt-2 pr-2 pb-2 pl-2 items-center justify-center">Hard fork</div>
+          <div class="w-full sm:w-[70%] p-2 flex items-center justify-center sm:justify-start sm:px-4 text-xs uppercase tracking-widest text-[#1a1a1a]/80 group">
+            <div class="flex items-center space-x-2">
+              <div class="w-1.5 h-1.5 bg-[#c22d2d] rounded-full animate-pulse"></div>
+              <span>System Operational. A long-form story.</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
 
-    <div id="modal" class="hidden" role="dialog" aria-labelledby="modal-title" tabindex="-1">
-      <div class="modal-content">
-        <h2 id="modal-title"></h2>
-        <div id="modal-body"></div>
-        <div id="modal-image"></div>
-        <button class="close-btn" aria-label="Close">Press ESC to continue</button>
-      </div>
-    </div>
-
-    <div id="image-viewer" class="hidden" role="dialog" aria-label="Expanded image viewer" tabindex="-1">
-      <div class="image-viewer-frame">
-        <button id="image-viewer-close" aria-label="Close image viewer">[X]</button>
-        <img src="" alt="" />
-        <p class="viewer-caption"></p>
-        <p class="viewer-hint">Press X to close</p>
-      </div>
-    </div>
-
-    <div id="end-sequence" class="hidden">
-      <div class="end-content">
-        <pre id="ascii-art" aria-label="Happy Holidays ASCII art"></pre>
-        <div id="confetti" aria-hidden="true"></div>
-        <div id="image-gallery"></div>
-        <button id="share-btn">Share This Adventure</button>
-        <button id="restart-btn">Play Again</button>
-      </div>
-    </div>
-
-    <script src="content.js"></script>
-    <script src="main.js"></script>
+    <script>
+      // Set printed date format
+      const dateObj = new Date();
+      const formattedDate = dateObj.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+      document.getElementById('current-date').innerText = formattedDate;
+    </script>
   </body>
 </html>
